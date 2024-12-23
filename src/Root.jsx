@@ -8,6 +8,7 @@ import Bookings from "./Bookings/Bookings";
 import BookingsUpdate from "./update/BookingsUpdate";
 import Login from "./AuthSecurity/Login";
 import Registration from "./AuthSecurity/Registration";
+import AboutUs from "./AboutUs/AboutUs";
 // import Home from "../Pages/Home/Home";
 // import Error from "../Shared/Error/Error";
 // import Login from "../Pages/Login/Login";
