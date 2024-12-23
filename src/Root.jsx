@@ -12,6 +12,7 @@ import AboutUs from "./AboutUs/AboutUs";
 import ContactUs from "./ContactUs.jsx/ContactUs";
 import RoomDetails from "./RoomDetails/RoomDetails";
 import BookRoom from "./BookRoom/BookRoom";
+import Cart from "./Cart/Cart";
 // import Home from "../Pages/Home/Home";
 // import Error from "../Shared/Error/Error";
 // import Login from "../Pages/Login/Login";

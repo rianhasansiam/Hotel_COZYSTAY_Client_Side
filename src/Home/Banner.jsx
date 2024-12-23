@@ -1,7 +1,7 @@
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
-import video from "../../assets/bg-video.mp4";
+import video from "../assets/bg-video";
 
 const Banner = () => {
   useEffect(() => {

@@ -17,10 +17,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+// import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { contextData } from "../Contex";
 
 const RoomCard = ({ room, alternateLayout }) => {
   useEffect(() => {
@@ -31,7 +32,7 @@ const RoomCard = ({ room, alternateLayout }) => {
     Aos.refresh();
   });
 
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(contextData);
   const {
     _id,
     type,

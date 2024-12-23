@@ -5,13 +5,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import useAuth from "../../Components/hooks/useAuth";
-import SocialLogin from "../../Components/SocialLogin/SocialLogin";
+// import useAuth from "../../Components/hooks/useAuth";
+// import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import axios from "axios";
-import PageTitle from "../../Components/PageTitle/PageTitle";
+// import PageTitle from "../../Components/PageTitle/PageTitle";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import useAuth from "../hooks/useAuth";
+import PageTitle from "../PageTitle/PageTitle";
+import SocialLogin from "../SocialLogin.jsx/SocialLogin";
 
 const Login = () => {
   useEffect(() => {

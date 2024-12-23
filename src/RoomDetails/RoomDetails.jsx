@@ -11,18 +11,24 @@ import { RiSafe2Fill } from "react-icons/ri";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { TbAirConditioning } from "react-icons/tb";
 import { useLoaderData } from "react-router-dom";
-import RoomReservation from "../../Shared/RoomReservation/RoomReservation";
-import ReviewForm from "../../Shared/ReviewForm/ReviewForm";
+// import RoomReservation from "../../Shared/RoomReservation/RoomReservation";
+// import ReviewForm from "../../Shared/ReviewForm/ReviewForm";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+// import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
 import ReviewSlider from "./ReviewSlider";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import PageTitle from "../../Components/PageTitle/PageTitle";
+// import PageTitle from "../../Components/PageTitle/PageTitle";
+
+
+
 
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { contextData } from "../Contex";
+import PageTitle from "../PageTitle/PageTitle";
+import ReviewForm from "../ReviewForm/ReviewForm";
 
 const RoomDetails = () => {
   useEffect(() => {
@@ -34,7 +40,7 @@ const RoomDetails = () => {
   });
 
   const roomDetails = useLoaderData();
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(contextData);
 
   const {
     _id,

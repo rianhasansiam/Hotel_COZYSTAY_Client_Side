@@ -1,12 +1,15 @@
 import { FaCircle, FaRegClock } from "react-icons/fa";
-import RoomCard from "./RoomCard";
+// import RoomCard from "./RoomCard";
 import { TiPlus } from "react-icons/ti";
-import PriceFilter from "./PriceFilter";
+// import PriceFilter from "./PriceFilter";
 import { useEffect, useState } from "react";
-import PageTitle from "../../Components/PageTitle/PageTitle";
+// import PageTitle from "../../Components/PageTitle/PageTitle";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
+import PageTitle from "../PageTitle/PageTitle";
+import RoomCard from "./RoomCard";
+import PriceFilter from "./PriceFilter";
 
 const Room = () => {
   useEffect(() => {

@@ -1,9 +1,11 @@
-import LeafletMap from "../../Components/LeafletMap/LeafletMap";
-import PageTitle from "../../Components/PageTitle/PageTitle";
+// import LeafletMap from "../../Components/LeafletMap/LeafletMap";
+// import PageTitle from "../../Components/PageTitle/PageTitle";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import PageTitle from "../PageTitle/PageTitle";
+import LeafletMap from "../LeafletMap/LeafletMap";
 
 const ContactUs = () => {
   useEffect(() => {

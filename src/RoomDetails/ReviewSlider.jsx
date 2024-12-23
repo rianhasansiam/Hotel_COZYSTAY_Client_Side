@@ -11,9 +11,10 @@ import {
   import "swiper/css/pagination";
   import "swiper/css/scrollbar";
   import "swiper/css/autoplay";
-  import ReviewCards from "../../Components/Review/ReviewCards";
+  // import ReviewCards from "../../Components/Review/ReviewCards";
   import { useEffect, useState } from "react";
   import PropTypes from "prop-types"; // Import PropTypes
+import ReviewCards from "../Review/ReviewCards";
   
   const ReviewSlider = ({ roomDetails }) => {
     const { _id } = roomDetails;

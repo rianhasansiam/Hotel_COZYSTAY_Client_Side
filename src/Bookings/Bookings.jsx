@@ -1,13 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
-import Cart from "../Cart/Cart";
+// import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+// import Cart from "../Cart/Cart";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import PageTitle from "../../Components/PageTitle/PageTitle";
+// import PageTitle from "../../Components/PageTitle/PageTitle";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
+
+import { contextData } from "../Contex";
+import PageTitle from "../PageTitle/PageTitle";
+import Cart from "../Cart/Cart";
 
 const Bookings = () => {
   useEffect(() => {
@@ -15,7 +19,7 @@ const Bookings = () => {
     Aos.refresh();
   }, []);
 
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(contextData);
   const [bookings, setBookings] = useState([]);
 
   const url = `https://hotel-booking-server-lake.vercel.app/bookings?email=${user?.email}`;

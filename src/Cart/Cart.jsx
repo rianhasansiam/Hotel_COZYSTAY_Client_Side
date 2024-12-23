@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
-import CartModal from "./cartModal";
-import ReviewModal from "./reviewModal";
+// import CartModal from "./cartModal";
+// import ReviewModal from "./reviewModal";
 import { Link } from "react-router-dom";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import ReviewModal from "./ReviewModal";
+import CartModal from "./CartModal";
 
 const Cart = ({ booking, handleDelete, handleCancel }) => {
   useEffect(() => {

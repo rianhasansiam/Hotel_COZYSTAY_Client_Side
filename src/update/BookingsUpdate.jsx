@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+// import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { contextData } from "../Contex";
 
 const BookingsUpdate = () => {
   useEffect(() => {
@@ -23,7 +24,7 @@ const BookingsUpdate = () => {
   const [numRooms, setNumRooms] = useState(1);
   const [numAdults, setNumAdults] = useState(1);
   const [numChildren, setNumChildren] = useState(0);
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(contextData);
 
   const handleNumRoomsChange = (e) => {
     setNumRooms(parseInt(e.target.value));
