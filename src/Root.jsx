@@ -5,6 +5,7 @@ import Home from "./Home/Home";
 import Room from "./Room/Room";
 import PrivateRoute from "./AuthSecurity/PrivateRoute";
 import Bookings from "./Bookings/Bookings";
+import BookingsUpdate from "./update/BookingsUpdate";
 // import Home from "../Pages/Home/Home";
 // import Error from "../Shared/Error/Error";
 // import Login from "../Pages/Login/Login";
