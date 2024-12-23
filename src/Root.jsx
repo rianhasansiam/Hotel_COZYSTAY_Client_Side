@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Error from "./Error/Error";
 import Home from "./Home/Home";
+import Room from "./Room/Room";
+import PrivateRoute from "./AuthSecurity/PrivateRoute";
 // import Home from "../Pages/Home/Home";
 // import Error from "../Shared/Error/Error";
 // import Login from "../Pages/Login/Login";
