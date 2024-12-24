@@ -6,13 +6,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Marcellus&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-
-body{
-  font-family: "Open Sans", sans-serif;
-}

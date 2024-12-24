@@ -1,19 +1,9 @@
-import { Outlet } from "react-router-dom"
-import Navbar from "./Navbar/Navbar"
-import Footer from "./Footer/Footer"
-
-
-
 function App() {
-
-
   return (
     <>
-     <Navbar/>
-     <Outlet/>
-     <Footer/>
+      <h1 className=" text-primary">Cozystay</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

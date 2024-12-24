@@ -1,20 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { RouterProvider } from 'react-router-dom'
-import Root from './Root.jsx'
-import Contex from './Contex.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import "./index.css";
+import router from "./Routes/Routes.jsx";
+import FirebaseProvider from "./Components/FirebaseProvider/FirebaseProvider.jsx";
 
-
-
-
-
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Contex>
-
-    <RouterProvider router={Root} />
-    </Contex>
-  </StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <FirebaseProvider>
+      <RouterProvider router={router} />
+    </FirebaseProvider>
+  </React.StrictMode>
+);
