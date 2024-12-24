@@ -3,8 +3,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import FromForFeedback from "../../Components/FromForFeedback/FromForFeedback";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+import { contextData } from "../Contex";
+import FromForFeedback from "../FromForFeedback/FromForFeedback";
+// import FromForFeedback from "../../Components/FromForFeedback/FromForFeedback";
+// import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
 
 const style = {
   position: "absolute",
@@ -24,7 +26,7 @@ const ReviewModal = ({ booking }) => {
   const handleClose = () => setOpen(false);
   const { _id } = booking;
 
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(contextData);
 
   const [reviews, setReviews] = useState([]);
 

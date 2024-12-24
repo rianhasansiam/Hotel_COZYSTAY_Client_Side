@@ -1,9 +1,10 @@
-import Benefits from "../../Components/Benefits/Benefits";
-import PageTitle from "../../Components/PageTitle/PageTitle";
+
 
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import Benefits from "../Benefits/Benefits";
+import PageTitle from "../PageTitle/PageTitle";
 
 const AboutUs = () => {
   useEffect(() => {
