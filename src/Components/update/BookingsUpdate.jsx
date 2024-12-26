@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
 import DatePicker from "react-datepicker";
@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import axios from "axios";
 
 const BookingsUpdate = () => {
   useEffect(() => {
@@ -15,13 +16,15 @@ const BookingsUpdate = () => {
     Aos.refresh();
   }, []);
 
-  const roomDetails = useLoaderData(); // This should fetch the room details correctly
+  const roomDetails = useLoaderData();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numRooms, setNumRooms] = useState(1);
   const [numAdults, setNumAdults] = useState(1);
   const [numChildren, setNumChildren] = useState(0);
   const { user } = useContext(AuthContext);
+
+  const navigate=useNavigate()
 
   const handleNumRoomsChange = (e) => {
     setNumRooms(parseInt(e.target.value));
@@ -48,14 +51,16 @@ const BookingsUpdate = () => {
     return <div>Loading...</div>;
   }
 
-  const { pricePerNight, _id } = roomDetails;
+  const { pricePerNight, room_id } = roomDetails[0];
   const totalCost = pricePerNight * numRooms;
+  // console.log(room_id)
 
   const handleUpdate = (e) => {
     e.preventDefault();
+
     const updatedDetails = {
-      checkInDate: startDate,
-      checkOutDate: endDate,
+      checkInDate: startDate, // Ensure startDate is correctly set
+      checkOutDate: endDate,  // Ensure endDate is correctly set
       numRooms,
       numAdults,
       numChildren,
@@ -64,35 +69,32 @@ const BookingsUpdate = () => {
       image: roomDetails.image,
       description: roomDetails.description,
       roomImages: roomDetails.roomImages,
-      room_id: _id,
+      room_id: room_id,
       email: user?.email,
       user: user?.displayName,
-      pricePerNight: pricePerNight,
+      pricePerNight,
     };
 
     console.log("Submitted Data:", updatedDetails);
 
-    fetch(`http://localhost:5000/bookings/${_id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedDetails),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error("Failed to update booking");
-        }
+    axios
+      .patch(`http://localhost:5000/booking/update/${room_id}`, updatedDetails, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-      .then((data) => {
-        console.log(data);
-        toast.success("Update booking successfully");
+      .then((response) => {
+        console.log(response.data);
+        toast.success("Booking updated successfully");
+
+      navigate('/booking')
+
+
+        // Optionally reset the form or do other actions after success
       })
       .catch((error) => {
         console.error("Error updating booking:", error.message);
-        toast.warn("Failed to update booking");
+        toast.error(error.response?.data?.message || "Failed to update booking");
       });
   };
 
@@ -200,6 +202,3 @@ const BookingsUpdate = () => {
 };
 
 export default BookingsUpdate;
-
-
-

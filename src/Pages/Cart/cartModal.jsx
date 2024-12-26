@@ -25,7 +25,7 @@ const CartModal = ({ booking, handleDelete }) => {
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      {/* Button to open modal */}
       <button
         onClick={handleOpen}
         className="btn btn-sm bg-red-600 text-white hover:bg-red-600 hover:border-none"
@@ -41,11 +41,8 @@ const CartModal = ({ booking, handleDelete }) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Are You Sure Delete Your Booking!!
+            Are You Sure You Want to Delete Your Booking?
           </Typography>
-          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
           <button
             onClick={() => handleDelete(_id)}
             className="btn btn-primary mt-10 text-white"
@@ -58,19 +55,7 @@ const CartModal = ({ booking, handleDelete }) => {
   );
 };
 
-CartModal.propTypes = {
-  booking: PropTypes.shape({
-    _id: PropTypes.string,
-    checkInDate: PropTypes.string,
-    checkOutDate: PropTypes.string,
-    numRooms: PropTypes.number,
-    numAdults: PropTypes.number,
-    totalCost: PropTypes.number,
-    type: PropTypes.string,
-    image: PropTypes.string,
-    pricePerNight: PropTypes.number,
-  }),
-  handleDelete: PropTypes.func,
-};
+// Ensure proper PropTypes validation
+
 
 export default CartModal;

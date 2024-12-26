@@ -5,7 +5,7 @@ import { RiParkingBoxLine } from "react-icons/ri";
 
 const Benefits = () => {
   return (
-    <div className="container mx-auto lg:flex justify-between my-10">
+    <div className="container mx-auto lg:flex justify-between my-10 ">
       <div className="lg:w-1/2 mb-4 space-y-5">
         <p data-aos="fade-up" className=" font-roboto">
           DISCOVER THE SERVICES WE OFFERED

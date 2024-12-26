@@ -57,9 +57,11 @@ const Registration = () => {
           reset();
           toast.success("Registration Successful", {
             onClose: () => {
-              navigate(from);
+          
             },
           });
+          navigate(from);
+
           // window.location.reload();
         });
       })

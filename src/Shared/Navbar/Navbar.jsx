@@ -66,7 +66,7 @@ const Navbar = () => {
           </div>
           <Link
             to="/"
-            className=" lg:text-xl font-marcellus font-light md:text-lg"
+            className=" lg:text-xl font-marcellus font-light md:text-lg "
           >
             COZYSTAY
           </Link>

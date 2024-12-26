@@ -33,7 +33,9 @@ const SocialLogin = () => {
           </span>{" "}
           Google
         </button>
-        <button
+
+
+        {/* <button
           onClick={() => handleSocialLogin(githubLogin)}
           className="btn bg-primary hover:bg-secondary text-white"
         >
@@ -50,7 +52,7 @@ const SocialLogin = () => {
             <FaTwitter />
           </span>{" "}
           Twitter
-        </button>
+        </button> */}
       </div>
     </div>
   );

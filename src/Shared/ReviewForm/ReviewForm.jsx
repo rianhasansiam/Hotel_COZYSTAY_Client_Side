@@ -18,7 +18,7 @@ const ReviewForm = ({ roomDetails }) => {
   useEffect(() => {
     if (user) {
       // Fetch bookings when component mounts
-      fetch("https://hotel-booking-server-lake.vercel.app/bookings")
+      fetch("http://localhost:5000/bookings")
         .then((response) => response.json())
         .then((data) => {
           // Filter bookings by user email and room_id
@@ -34,7 +34,7 @@ const ReviewForm = ({ roomDetails }) => {
     }
 
     // Fetch reviews
-    fetch("https://hotel-booking-server-lake.vercel.app/reviews")
+    fetch("http://localhost:5000/reviews")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -72,7 +72,7 @@ const ReviewForm = ({ roomDetails }) => {
       };
 
       // Submit the review to the server
-      fetch("https://hotel-booking-server-lake.vercel.app/reviews", {
+      fetch("http://localhost:5000/reviews", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -106,7 +106,7 @@ const ReviewForm = ({ roomDetails }) => {
 
   return (
     <div>
-      <h2 className="font-marcellus text-4xl">Write a review</h2>
+      <h2 className="font-marcellus text-4xl">Write a srian</h2>
       <form className="card-body p-0" onSubmit={handleSubmit}>
         <div className="form-control">
           <label className="label">
@@ -163,11 +163,11 @@ const ReviewForm = ({ roomDetails }) => {
 };
 
 // Prop validation for roomDetails
-ReviewForm.propTypes = {
-  roomDetails: PropTypes.shape({
-    _id: PropTypes.string,
-    // Add validation for other properties if needed
-  }),
-};
+// ReviewForm.propTypes = {
+//   roomDetails: PropTypes.shape({
+//     _id: PropTypes.string,
+//     // Add validation for other properties if needed
+//   }),
+// };
 
 export default ReviewForm;

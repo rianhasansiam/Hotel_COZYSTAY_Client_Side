@@ -1,466 +1,346 @@
-import { BiSolidDrink } from "react-icons/bi";
-import { CgSmartHomeRefrigerator } from "react-icons/cg";
-import { FaBed, FaCircle, FaWifi } from "react-icons/fa";
-import { FaBottleDroplet } from "react-icons/fa6";
-import { GiSlippers, GiTowel, GiWashingMachine } from "react-icons/gi";
-import { GoPeople } from "react-icons/go";
-import { IoBedOutline } from "react-icons/io5";
-import { MdOutlineCoffeeMaker, MdOutlinePets, MdPool } from "react-icons/md";
-import { PiHairDryerFill, PiTelevisionSimple } from "react-icons/pi";
-import { RiSafe2Fill } from "react-icons/ri";
-import { SlSizeFullscreen } from "react-icons/sl";
-import { TbAirConditioning } from "react-icons/tb";
-import { useLoaderData } from "react-router-dom";
-import RoomReservation from "../../Shared/RoomReservation/RoomReservation";
-import ReviewForm from "../../Shared/ReviewForm/ReviewForm";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
-import ReviewSlider from "./ReviewSlider";
-import { ToastContainer, toast } from "react-toastify";
+import { FaCircle, FaBed, FaWifi } from 'react-icons/fa';
+import { MdPool, MdOutlineCoffeeMaker, MdOutlinePets } from 'react-icons/md';
+import { GiWashingMachine, GiTowel, GiSlippers } from 'react-icons/gi';
+import { TbAirConditioning } from 'react-icons/tb';
+import { PiTelevisionSimple, PiHairDryerFill } from 'react-icons/pi';
+import { CgSmartHomeRefrigerator } from 'react-icons/cg';
+import { RiSafe2Fill } from 'react-icons/ri';
+import { BiSolidDrink } from 'react-icons/bi';
 
-import "react-toastify/dist/ReactToastify.css";
-import PageTitle from "../../Components/PageTitle/PageTitle";
+import axios from 'axios';
 
-import Aos from "aos";
-import "aos/dist/aos.css";
+import { Bed, Maximize, Users } from 'lucide-react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AuthContext } from '../../Components/FirebaseProvider/FirebaseProvider';
+import EachRoomReview from './EachRoomReview';
 
 const RoomDetails = () => {
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
+  const { id } = useParams();  // Get room ID from URL parameters
+  const { user } = useContext(AuthContext);  // Get user from AuthContext
+  const [data, setData] = useState(null);  // State for storing room data
+  const [isModalOpen, setIsModalOpen] = useState(false);  // Modal state
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    Aos.refresh();
-  });
+  // State to store form data
+  const [checkInDate, setCheckInDate] = useState('');
+  const [checkOutDate, setCheckOutDate] = useState('');
+  const [numRooms, setNumRooms] = useState(1);
+  const [numAdults, setNumAdults] = useState(1);
+  const [numChildren, setNumChildren] = useState(0);
+  const [email, setEmail] = useState(user?.email || '');
+  const [userName, setUserName] = useState(user?.displayName || '');
+  const [type, setType] = useState('');
+  const [pricePerNight, setPricePerNight] = useState(0);
+  const [room_id, setRoom_id] = useState('');
+  const [image, setImage] = useState('');
+  const [description, setDescription] = useState('');
+  const [review, setReview] = useState([]);
+  const [booking, setBookings] = useState([]);
 
-  const roomDetails = useLoaderData();
-  const { user } = useContext(AuthContext);
+  const totalCost = pricePerNight * numRooms;
 
-  const {
-    _id,
-    type,
-    pricePerNight,
-    roomSize,
-    availability,
-    roomImages,
-    specialOffers,
-    image,
-    description,
-    guests,
-    beds,
-  } = roomDetails;
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();  // Prevent the default form submission behavior
 
-  const [bookings, setBookings] = useState([]);
-
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/bookings"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch bookings");
-        }
-        const data = await response.json();
-
-        // Filter bookings based on room ID and user email
-        const filteredBookings = data.filter(
-          (booking) => booking.room_id === _id && booking.email === user.email
-        );
-
-        setBookings(filteredBookings);
-      } catch (error) {
-        console.error("Error fetching bookings:", error.message);
-      }
+    const reservationDetails = {
+      checkInDate,
+      checkOutDate,
+      numRooms,
+      numAdults,
+      numChildren,
+      totalCost,
+      email,
+      userName,
+      type,
+      pricePerNight,
+      room_id,
+      image,
+      description,
     };
 
-    fetchBookings();
+    console.log('Reservation Details:', reservationDetails);
 
-    return () => {};
-  }, [_id, user]);
-
-  const [reviews, setReviews] = useState([]);
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/reviews"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch reviews");
-        }
-        const data = await response.json();
-        // Filter reviews based on matching _id and user email
-        const filteredReviews = data.filter(
-          (review) =>
-            review.details_id === roomDetails._id && review.email === user.email
-        );
-        setReviews(filteredReviews);
-        // console.log("Filtered reviews data:", filteredReviews);
-      } catch (error) {
-        console.error("Error fetching reviews:", error.message);
-      }
-    };
-
-    fetchReviews();
-
-    return () => {};
-  }, [roomDetails, user]);
-
-  const cancelBooking = (id) => {
-    // Proceed with cancellation request
-    fetch(
-      `http://localhost:5000/bookings/${id}/cancel`,
-      {
-        method: "POST",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "Booking canceled successfully") {
-          // Update bookings state to remove canceled booking
-          const updatedBookings = bookings.filter(
-            (booking) => booking._id !== id
-          );
-          setBookings(updatedBookings);
-          // alert("Booking canceled successfully.");
-          toast.success("Booking cancel successfully");
-        } else {
-          // alert("Failed to cancel booking. Please try again later.");
-          toast.error("Failed to cancel booking");
-        }
+    // Axios post request inside handleSubmit
+    axios.post('http://localhost:5000/bookings', reservationDetails)
+      .then(response => {
+        console.log(response.data);
+        // Navigate to the bookings page or show success message if needed
+        bookFunc();
       })
-      .catch((error) => {
-        console.error("Error canceling booking:", error);
-        // alert("An error occurred while canceling the booking.");
-        toast.error("An error occurred while canceling the booking.");
+      .catch(error => {
+        console.error('There was an error!', error);
       });
   };
 
+  // You can call bookFunc() inside handleSubmit once the Axios request is successful
+  const bookFunc = () => {
+    setIsModalOpen(false);
+    navigate('/booking');
+  };
+
+  // Fetch room data using useEffect
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (id) {
+          // Fetch room details
+          const roomResponse = await axios.get(`http://localhost:5000/rooms/${id}`);
+          setData(roomResponse.data);
+
+          // Fetch room bookings
+          const bookingResponse = await axios.get(`http://localhost:5000/bookings/${id}`);
+          setBookings(bookingResponse.data);
+        }
+      } catch (err) {
+        console.log('Data fetching problem', err);  // Log errors if data fetch fails
+      }
+    };
+
+    fetchData();  // Call the async function
+  }, [id]);
+
+  useEffect(() => {
+    if (data) {
+      setType(data.type);
+      setPricePerNight(data.pricePerNight);
+      setRoom_id(data._id);
+      setImage(data.image);
+      setDescription(data.description);
+    }
+  }, [data]);
+
+  // Modal open and close functions
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/eachReview/${id}`); // Fetch room details by ID
+        setReview(response.data);  // Update state with room details
+      } catch (err) {
+        console.log('Data fetching problem', err);  // Log errors if data fetch fails
+      }
+    };
+
+    if (id) {
+      fetchData();  // Fetch data when component mounts or `id` changes
+    }
+  }, [id]);
+
   return (
-    <div>
-      <PageTitle title="Room Details"></PageTitle>
-      <div>
-        <img className="w-full h-96" src={image} alt="" />
-      </div>
-      <div className=" container mx-auto lg:flex justify-between my-10">
-        <div data-aos="fade-up" className="lg:w-3/5 space-y-10 lg:mr-24">
-          <p data-aos="fade-up" className=" text-4xl font-marcellus font-light">
-            {type}
-          </p>
-          <p data-aos="fade-up" className=" text-secondary text-xl">
-            Special Offer:{" "}
-            <span>{specialOffers ? specialOffers : "No Offers"}</span>
-          </p>
-          <div className=" flex justify-between">
-            <div
-              data-aos="fade-up"
-              className=" flex justify-start items-center gap-5 font-roboto"
-            >
-              <p className="flex items-center gap-4">
-                <span className=" text-lg">
-                  <SlSizeFullscreen />
-                </span>
-                {roomSize}
-              </p>
-              <p className="flex items-center gap-4">
-                <span className=" text-xl">
-                  <GoPeople />
-                </span>
-                {guests} Guests
-              </p>
-              <p className="flex items-center gap-4">
-                <span className=" text-xl">
-                  <IoBedOutline />
-                </span>
-                {beds} Beds
-              </p>
+    <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+      {/* Left Content */}
+      <div className="lg:w-2/3 space-y-6">
+        <div>
+          <h1 className="text-3xl font-semibold text-gray-900">{data?.type}</h1>
+          <p className="text-pink-500 mt-2">{data?.specialOffers}</p>
+
+          <div className="flex gap-6 text-gray-600">
+            <div className="flex items-center gap-2">
+              <Maximize className="w-5 h-5" />
+              <span>{data?.roomSize}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="w-5 h-5" />
+              <span>{data?.guests} Guests</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Bed className="w-5 h-5" />
+              <span>{data?.beds} Beds</span>
             </div>
           </div>
 
-          <div className=" space-y-5 font-roboto">
-            <p data-aos="fade-up">
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Room Facilities</h2>
+            <div className="flex gap-4">
+              {data?.roomFacility &&
+                Array.isArray(data.roomFacility) &&
+                data.roomFacility.map((amenity, index) => (
+                  <button className="flex items-center gap-2 bg-pink-500 text-white px-4 py-2 rounded-lg" key={index}>
+                    {amenity}
+                  </button>
+                ))}
+            </div>
+          </div>
+
+          <div className="space-y-5 font-roboto">
+            <p>
               <span className="font-semibold">
                 This room shows an example of the “Booking Rules”.
-              </span>{" "}
-              These information can be reflected in the calendar on the right or
-              below the content.
+              </span>{' '}
+              This information can be reflected in the calendar on the right or below the content.
             </p>
-            <ul data-aos="fade-up" className=" space-y-2">
-              <li className="flex items-center gap-4 ">
+
+            {/* Booking Rules List */}
+            <ul className="space-y-2">
+              <li className="flex items-center gap-4">
                 <span className="text-sm text-secondary">
                   <FaCircle />
                 </span>
                 Reservations must be made at least 3 days in advance
               </li>
-              <li className="flex items-center gap-4 ">
+              <li className="flex items-center gap-4">
                 <span className="text-sm text-secondary">
                   <FaCircle />
                 </span>
                 Reservations can only be made up to 90 days in advance
               </li>
-              <li className="flex items-center gap-4 ">
+              <li className="flex items-center gap-4">
                 <span className="text-sm text-secondary">
                   <FaCircle />
                 </span>
                 No check-in on Mondays
               </li>
-              <li className="flex items-center gap-4 ">
+              <li className="flex items-center gap-4">
                 <span className="text-sm text-secondary">
                   <FaCircle />
                 </span>
                 No check-out on Fridays
               </li>
             </ul>
-          </div>
-          <div data-aos="fade-up">
-            <p className=" font-roboto">{description}</p>
-          </div>
-          <div></div>
-          <div className=" space-y-5">
-            <p
-              data-aos="fade-up"
-              className=" font-marcellus font-light text-2xl"
-            >
-              Family-friendly Amenities
-            </p>
-            <div
-              data-aos="fade-up"
-              className="text-white grid lg:grid-cols-3 gap-4"
-            >
-              <div className="flex justify-center items-center gap-2 bg-secondary p-4 rounded-lg">
-                <p className=" text-2xl ">
-                  <MdPool />
-                </p>
-                <p>Kids Swimming Pool</p>
-              </div>
-              <div className="flex justify-center items-center gap-2 bg-secondary p-4 rounded-lg">
-                <p className=" text-2xl ">
-                  <FaBed />
-                </p>
-                <p>Extra Beds/Baby Crib</p>
-              </div>
-              <div className="flex justify-center items-center gap-2 bg-secondary p-4 rounded-lg">
-                <p className=" text-2xl ">
-                  <GiWashingMachine />
-                </p>
-                <p>Washing Machine</p>
-              </div>
-            </div>
-          </div>
-          <div className=" space-y-5">
-            <p
-              data-aos="fade-up"
-              className=" font-marcellus font-light text-2xl"
-            >
-              Room Amenities
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <TbAirConditioning />
-                </span>
-                Air conditioner
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <PiTelevisionSimple />
-                </span>
-                Cable TV
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <FaWifi />
-                </span>
-                Wifi & Internet
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <GiTowel />
-                </span>
-                Towels
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <GiSlippers />
-                </span>
-                Slippers
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <PiHairDryerFill />
-                </span>
-                Hair Dryer
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <FaBottleDroplet />
-                </span>
-                Shampoo
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <MdOutlineCoffeeMaker />
-                </span>
-                Espresso Machine
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <RiSafe2Fill />
-                </span>
-                Safe Box
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <BiSolidDrink />
-                </span>
-                Welcome Drinks
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <MdOutlinePets />
-                </span>
-                Pet Friendly
-              </p>
-              <p data-aos="fade-up" className="flex items-center gap-4">
-                <span className="text-2xl text-secondary">
-                  <CgSmartHomeRefrigerator />
-                </span>
-                In-room Refrigerator
-              </p>
-            </div>
-          </div>
-          <div className=" space-y-5">
-            <p
-              data-aos="fade-up"
-              className=" font-marcellus font-light text-2xl"
-            >
-              What’s included in this suite?
-            </p>
-            <ul data-aos="fade-up" className=" space-y-2">
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                Private balcony
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                140x200 cm Elite bed
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                Upholstered seat beside the panoramic window
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                TV-UHD screen for watching mountaineering films
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                Writing desk with USB ports for documenting your adventures
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                Room safe for your top mountain photos
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                Service station with Lavazza coffee machine, kettle and tea
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                Bathroom with rain shower
-              </li>
-              <li className="flex items-center gap-4 ">
-                <span className="text-sm text-secondary">
-                  <FaCircle />
-                </span>
-                Comfortable terry towels and bathrobes
-              </li>
-            </ul>
-          </div>
-          <div className=" space-y-5">
-            <h3 data-aos="fade-up" className="text-4xl font-marcellus">
-              Feedback from our Guests
-            </h3>
-            <ReviewSlider
-              bookings={bookings}
-              reviews={reviews}
-              roomDetails={roomDetails}
-            ></ReviewSlider>
-          </div>
-          <div>
-            <div data-aos="fade-up">
-              {user ? (
-                bookings.some(
-                  (booking) =>
-                    booking.room_id === roomDetails._id &&
-                    booking.email === user.email
-                ) ? (
-                  reviews.some(
-                    (review) =>
-                      review.details_id === roomDetails._id &&
-                      review.email === user.email
-                  ) ? (
-                    <p className="font-marcellus lg:text-4xl">
-                      You have already submitted a review for this room.
-                    </p>
-                  ) : (
-                    <ReviewForm roomDetails={roomDetails} />
-                  )
-                ) : (
-                  <p className="font-marcellus lg:text-4xl">
-                    To submit a review, you need to book the room first.
-                  </p>
-                )
-              ) : (
-                <p className="font-marcellus lg:text-4xl">
-                  Please log in to submit a review.
-                </p>
-              )}
+
+            {/* Description Section */}
+            <div>
+              <p className="font-roboto">{data?.description}</p>
             </div>
           </div>
         </div>
-        <div data-aos="fade-up" className="lg:w-2/5  font-marcellus">
-          <div className=" bg-primary rounded-lg shadow-xl px-10 py-14">
-            <div className="flex justify-between items-center">
-              <p
-                data-aos="fade-up"
-                className=" font-marcellus text-2xl font-light text-white"
-              >
-                RESERVE:
-              </p>
-              <p data-aos="fade-up" className=" font-jost text-white">
-                From <span className=" font-sm text-lg ">${pricePerNight}</span>{" "}
-                /night
-              </p>
-            </div>
-            <RoomReservation
-              bookings={bookings}
-              roomDetails={roomDetails}
-              reviews={reviews}
-              cancelBooking={cancelBooking}
-            ></RoomReservation>
+
+        {/* Reviews */}
+        {Array.isArray(review) && review.length > 0 ? (
+          <div className='flex flex-wrap justify-center'>
+            {review.map((rev, index) => (
+              <EachRoomReview key={index} rev={rev} />
+            ))}
           </div>
-        </div>
+        ) : (
+          <div className='text-3xl font-semibold'>No reviews found. You can add reviews after booking the room.</div>
+        )}
+
+        <button 
+          className="bg-pink-500 hover:bg-pink-600 text-white w-full py-3 rounded-lg transition-all"
+          onClick={openModal}  // Open modal when clicked
+          disabled={booking.length !== 0}  // Disable button if no bookings
+        >
+          {booking.length === 0 ? "Book Now" : "Unavailable"}
+        </button>
       </div>
-      <ToastContainer />
+
+      {/* Room Image */}
+      <div className='w-[50%] h-[500px]'>
+        <img className='h-full w-full rounded-xl object-cover' src={data?.image} alt="room image" />
+      </div>
+
+      {/* Booking Modal */}
+      {isModalOpen && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-semibold mb-4">Enter Booking Details</h2>
+            <form onSubmit={handleSubmit}>
+              {/* Form inputs for booking details */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="checkInDate" className="block font-medium mb-2">Check-In Date:</label>
+                  <input
+                    type="date"
+                    id="checkInDate"
+                    value={checkInDate}
+                    onChange={(e) => setCheckInDate(e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="checkOutDate" className="block font-medium mb-2">Check-Out Date:</label>
+                  <input
+                    type="date"
+                    id="checkOutDate"
+                    value={checkOutDate}
+                    onChange={(e) => setCheckOutDate(e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="numRooms" className="block font-medium mb-2">Number of Rooms:</label>
+                  <input
+                    type="number"
+                    id="numRooms"
+                    value={numRooms}
+                    onChange={(e) => setNumRooms(e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="numAdults" className="block font-medium mb-2">Number of Adults:</label>
+                  <input
+                    type="number"
+                    id="numAdults"
+                    value={numAdults}
+                    onChange={(e) => setNumAdults(e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="numChildren" className="block font-medium mb-2">Number of Children:</label>
+                  <input
+                    type="number"
+                    id="numChildren"
+                    value={numChildren}
+                    onChange={(e) => setNumChildren(e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block font-medium mb-2">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="userName" className="block font-medium mb-2">Name:</label>
+                  <input
+                    type="text"
+                    id="userName"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2"
+                    required
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="mt-6 bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-lg transition-all"
+              >
+                Confirm Booking
+              </button>
+
+              <button
+                type="button"
+                onClick={closeModal}
+                className="mt-6 ml-4 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-all"
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

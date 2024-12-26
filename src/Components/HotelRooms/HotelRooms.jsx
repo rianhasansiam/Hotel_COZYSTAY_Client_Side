@@ -35,8 +35,10 @@ const HotelRooms = () => {
       .then((res) => res.json())
       .then((data) => setRooms(data));
   }, []);
+  const toprated = rooms.sort((a, b) => b.rating - a.rating)
+  // console.log(toprated)
 
-  
+
   return (
     <div className=" my-10">
       <div className=" text-center lg:w-2/4 md:w-3/5 mx-auto space-y-5">
@@ -47,7 +49,7 @@ const HotelRooms = () => {
           data-aos="fade-right"
           className=" font-marcellus md:text-2xl lg:text-5xl text-primary"
         >
-          Select Your Cozy Room
+          Top Rated Rooms
         </p>
         <p data-aos="fade-up" className=" font-roboto">
           In a new setting composed of exceptional hotels chalets, nestled in a
@@ -57,7 +59,7 @@ const HotelRooms = () => {
         </p>
       </div>
       <div data-aos="fade-up" className="container mx-auto my-10 ">
-        {/* <Swiper
+        <Swiper
           spaceBetween={20}
           slidesPerView={1}
           navigation={true}
@@ -82,13 +84,13 @@ const HotelRooms = () => {
             },
           }}
         >
-          {rooms.map((room) => (
+          {toprated.slice(0, 6).map((room) => (
             <SwiperSlide key={room._id}>
               <HotelRoomsCard key={room._id} room={room}></HotelRoomsCard>
             </SwiperSlide>
           ))}
-        </Swiper> */}
-        <div
+        </Swiper>
+        {/* <div
           
           className="mySwiper"
           
@@ -99,7 +101,7 @@ const HotelRooms = () => {
               <HotelRoomsCard key={room._id} room={room}></HotelRoomsCard>
             </SwiperSlide>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

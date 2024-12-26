@@ -93,17 +93,17 @@ const HotelRoomsCard = ({ room }) => {
   );
 };
 
-HotelRoomsCard.propTypes = {
-  room: PropTypes.shape({
-    _id: PropTypes.string,
-    type: PropTypes.string,
-    pricePerNight: PropTypes.number,
-    roomSize: PropTypes.string,
-    image: PropTypes.string,
-    description: PropTypes.string,
-    guests: PropTypes.number,
-    beds: PropTypes.number,
-  }).isRequired,
-};
+// HotelRoomsCard.propTypes = {
+//   room: PropTypes.shape({
+//     _id: PropTypes.string,
+//     type: PropTypes.string,
+//     pricePerNight: PropTypes.number,
+//     roomSize: PropTypes.string,
+//     image: PropTypes.string,
+//     description: PropTypes.string,
+//     guests: PropTypes.number,
+//     beds: PropTypes.number,
+//   }).isRequired,
+// };
 
 export default HotelRoomsCard;

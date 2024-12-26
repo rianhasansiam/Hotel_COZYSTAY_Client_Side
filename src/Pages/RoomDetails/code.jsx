@@ -62,7 +62,7 @@ const RoomDetails = () => {
 
   // useEffect(() => {
   //   // Fetch reviews when component mounts
-  //   fetch("https://hotel-booking-server-lake.vercel.app/reviews")
+  //   fetch("http://localhost:5000/reviews")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       const filteredReviews = data.filter(
@@ -94,7 +94,7 @@ const RoomDetails = () => {
 
   // Fetch bookings for the current room
   // useEffect(() => {
-  //   fetch("https://hotel-booking-server-lake.vercel.app/bookings")
+  //   fetch("http://localhost:5000/bookings")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       const submitReview = data.filter((roomID) => roomID.room_id === _id);
@@ -140,7 +140,7 @@ const RoomDetails = () => {
   // useEffect(() => {
   //   if (user) {
   //     // Fetch bookings when component mounts
-  //     fetch("https://hotel-booking-server-lake.vercel.app/bookings")
+  //     fetch("http://localhost:5000/bookings")
   //       .then((response) => response.json())
   //       .then((data) => {
   //         // Filter bookings by user email

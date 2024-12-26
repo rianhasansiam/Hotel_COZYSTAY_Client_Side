@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import moment from "moment";
+import { toast } from "react-toastify";
 
-const Cart = ({ booking, handleDelete, handleCancel }) => {
+const Cart = ({ booking, handleCancel }) => {
   useEffect(() => {
     Aos.init({ duration: 1000 });
     Aos.refresh();
@@ -28,6 +30,7 @@ const Cart = ({ booking, handleDelete, handleCancel }) => {
     type,
     image,
     pricePerNight,
+    room_id
   } = booking;
 
   // Function to format ISO date string into readable date
@@ -35,6 +38,33 @@ const Cart = ({ booking, handleDelete, handleCancel }) => {
     const date = new Date(isoDate);
     return date.toLocaleDateString(); // Formats date in user's local time zone
   };
+
+
+const storeDate=formatDate(checkOutDate)
+
+  const handleDelete = (_id, storeDate) => {
+    const cancellationDeadline = moment(storeDate).subtract(1, "days"); // 1 day before check-in date
+    const currentDate = moment();
+    // console.log(cancellationDeadline)
+    // console.log(currentDate)
+    // console.log(formatDate(checkOutDate))
+  
+    if (currentDate.isBefore(cancellationDeadline)) {
+      handleCancel(_id); // Proceed with cancellation if before deadline
+    } else {
+      toast.error("Cancellation deadline has passed. You cannot cancel this booking.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+  
+
 
   return (
     <div>
@@ -84,17 +114,17 @@ const Cart = ({ booking, handleDelete, handleCancel }) => {
         >
           <ReviewModal booking={booking}></ReviewModal>
           <button
-            onClick={() => handleCancel(_id)}
+            onClick={() => handleDelete(_id,storeDate)}
             className="btn btn-sm bg-red-600 text-white"
           >
             Cancel
           </button>
-          <Link to={`/update/${_id}`}>
+          <Link to={`/update/${room_id}`}>
             <button className="btn btn-sm bg-secondary text-white">
               Update
             </button>
           </Link>
-          <CartModal booking={booking} handleDelete={handleDelete}></CartModal>
+          {/* <CartModal booking={booking} handleDelete={handleDelete}></CartModal> */}
         </div>
       </div>
       <div className="divider divider-secondary"></div>
@@ -102,20 +132,20 @@ const Cart = ({ booking, handleDelete, handleCancel }) => {
   );
 };
 
-Cart.propTypes = {
-  booking: PropTypes.shape({
-    _id: PropTypes.string,
-    checkInDate: PropTypes.string,
-    checkOutDate: PropTypes.string,
-    numRooms: PropTypes.number,
-    numAdults: PropTypes.number,
-    totalCost: PropTypes.number,
-    type: PropTypes.string,
-    image: PropTypes.string,
-    pricePerNight: PropTypes.number,
-  }),
-  handleDelete: PropTypes.func,
-  handleCancel: PropTypes.func, // Added this for completeness
-};
+// Cart.propTypes = {
+//   booking: PropTypes.shape({
+//     _id: PropTypes.string,
+//     checkInDate: PropTypes.string,
+//     checkOutDate: PropTypes.string,
+//     numRooms: PropTypes.number,
+//     numAdults: PropTypes.number,
+//     totalCost: PropTypes.number,
+//     type: PropTypes.string,
+//     image: PropTypes.string,
+//     pricePerNight: PropTypes.number,
+//   }),
+//   handleDelete: PropTypes.func,
+//   handleCancel: PropTypes.func, // Added this for completeness
+// };
 
 export default Cart;

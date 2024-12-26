@@ -6,8 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 
+
 import Aos from "aos";
 import "aos/dist/aos.css";
+import Swal from "sweetalert2";
 
 const Bookings = () => {
   useEffect(() => {
@@ -18,76 +20,85 @@ const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
 
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
-
   useEffect(() => {
-    axios.get(url, { withCredentials: true }).then((res) => {
-      setBookings(res.data);
-    });
-    // fetch(url)
-    //   .then((res) => res.json())
-    //   .then((data) => setBookings(data));
-  }, [url]);
+    if (user?.email) {
+      const url = `http://localhost:5000/bookings?email=${user.email}`;
+      
+      axios.get(url, { withCredentials: true })
+        .then((res) => setBookings(res.data))
+        .catch(err => console.error('Error fetching bookings:', err));
+    }
+  }, [user]);
 
-  const handleDelete = (id) => {
-    // Proceed with deletion directly
-    fetch(`http://localhost:5000/bookings/${id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ status: "confirm" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.deletedCount > 0) {
-          // alert("Deleted successfully");
-          toast.success("Deleted successfully");
-          // Remove the deleted booking from the state
-          const remaining = bookings.filter((booking) => booking._id !== id);
-          setBookings(remaining);
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting booking:", error);
-        // alert("An error occurred while deleting the booking.");
-        toast.error("An error occurred while deleting the booking.");
-      });
-  };
 
+
+
+  // const handleDelete = (id) => {
+  //   fetch(`http://localhost:5000/bookings/${id}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.deletedCount > 0) {
+  //         toast.success("Deleted successfully");
+  //         const remaining = bookings.filter((booking) => booking._id !== id);
+  //         setBookings(remaining);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error deleting booking:", error);
+  //       toast.error("An error occurred while deleting the booking.");
+  //     });
+  // };
+
+
+
+
+  
+  
   const handleCancel = (id) => {
-    // Proceed with cancellation request
-    fetch(
-      `http://localhost:5000/bookings/${id}/cancel`,
-      {
-        method: "POST",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "Booking canceled successfully") {
-          // Update bookings state to remove canceled booking
-          const updatedBookings = bookings.filter(
-            (booking) => booking._id !== id
-          );
-          setBookings(updatedBookings);
-          // alert("Booking canceled successfully.");
-          toast.success("Booking cancel successfully");
-        } else {
-          // alert("Failed to cancel booking. Please try again later.");
-          toast.error("Failed to cancel booking");
-        }
-      })
-      .catch((error) => {
-        console.error("Error canceling booking:", error);
-        // alert("An error occurred while canceling the booking.");
-        toast.error("An error occurred while canceling the booking.");
-      });
+
+   Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // If user clicks "Yes, delete it!"
+      const deleteUrl = `http://localhost:5000/booking/cancle/${id}`;
+
+      axios
+        .delete(deleteUrl)
+        .then((response) => {
+          if (response.data.deletedCount > 0) {
+            toast.success("Deleted successfully");
+            const remaining = bookings.filter((booking) => booking._id !== id);
+            setBookings(remaining);
+          }
+        })
+        .catch((error) => {
+          console.error("Error deleting booking:", error);
+          toast.error("An error occurred while deleting the booking.");
+        });
+    } else {
+      // User clicked "Cancel", so no deletion is performed
+      Swal.fire("Cancelled", "Your booking is safe", "error");
+    }
+  });
   };
+
+
 
   return (
-    <div className="min-h-[calc(100vh-327px)] ">
+    <div className="min-h-[calc(100vh-327px)]">
       <PageTitle title="Bookings"></PageTitle>
       <div
         className="hero h-[450px]"
@@ -115,14 +126,17 @@ const Bookings = () => {
       <div className="container mx-auto my-8">
         <div>
           <div className="divider divider-secondary"></div>
-          {bookings.map((booking) => (
-            <Cart
-              key={booking._id}
-              booking={booking}
-              handleDelete={handleDelete}
-              handleCancel={handleCancel}
-            ></Cart>
-          ))}
+          {bookings.length > 0 ? (
+            bookings.map((booking) => (
+              <Cart
+                key={booking._id}
+                booking={booking}
+                handleCancel={handleCancel}
+              ></Cart>
+            ))
+          ) : (
+            <p>No bookings found</p>
+          )}
         </div>
       </div>
       <ToastContainer />

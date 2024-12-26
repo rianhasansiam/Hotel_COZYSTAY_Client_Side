@@ -2,6 +2,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import video from "../../assets/bg-video.mp4";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   useEffect(() => {
@@ -21,7 +22,7 @@ const Banner = () => {
           {/* Add additional video sources here */}
           Your browser does not support the video tag.
         </video>
-        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-overlay bg-opacity-60 "></div>
         <div className=" flex justify-center items-center text-center text-white  gap-10">
           <div className="lg:w-3/5 space-y-5">
             <div className="px-5 md:px-24 space-y-2">
@@ -44,8 +45,10 @@ const Banner = () => {
                 best wineries and restaurants.
               </p>
             </div>
+            
           </div>
         </div>
+            <Link to="/room" className="btn relative top-36">View Details</Link>
       </div>
     </div>
   );

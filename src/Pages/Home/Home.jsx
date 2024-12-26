@@ -9,6 +9,7 @@ import HomePageModal from "./HomePageModal";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
+import Offer from "./Offer";
 
 const Home = () => {
   useEffect(() => {
@@ -32,6 +33,9 @@ const Home = () => {
       </div>
       <div>
         <Benefits></Benefits>
+      </div>
+      <div>
+        <Offer></Offer>
       </div>
       <div>
         <Review></Review>

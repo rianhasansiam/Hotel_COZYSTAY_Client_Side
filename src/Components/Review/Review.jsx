@@ -40,7 +40,7 @@ const Review = () => {
       });
   };
 
-  console.log("review from home", reviews);
+  // console.log("review from home", reviews);
 
   const handleRatingChange = (e) => {
     const rating = parseInt(e.target.value);

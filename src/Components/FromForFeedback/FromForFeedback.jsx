@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../FirebaseProvider/FirebaseProvider";
-
 import { ToastContainer, toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 
 const FromForFeedback = ({ booking }) => {
@@ -18,18 +16,22 @@ const FromForFeedback = ({ booking }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Automatically generate a timestamp when the review is submitted
     const timestamp = new Date().toISOString();
+    
+    // Create the review object with required fields
     const review = {
       comment: reviewContent,
       rating: rating,
-      name: user ? user.displayName : "Guest",
+      name: user ? user.displayName : "Guest",  // Read-only username
       timestamp: timestamp,
-      details_id: room_id,
-      review_id: _id,
       room_id: room_id,
-      image: user?.photoURL,
-      email: user?.email,
+      review_id: _id,
+      image: user?.photoURL,  // Optional: user's profile image if available
+      email: user?.email,     // Optional: user's email if available
     };
+
     console.log("Review:", review);
 
     // Submit the review to the server
@@ -44,16 +46,16 @@ const FromForFeedback = ({ booking }) => {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
-          // alert("Review submitted successfully");
+          // Notify the user of success
           toast.success("Review submitted successfully");
         }
       })
       .catch((error) => {
         console.error("Error submitting review:", error);
-        // alert("Failed to submit review");
         toast.error("Failed to submit review");
       });
 
+    // Reset the form
     setReviewContent("");
     setRating(1);
   };
@@ -61,20 +63,21 @@ const FromForFeedback = ({ booking }) => {
   return (
     <div>
       <h2 className="font-marcellus text-4xl">Write a review</h2>
-      <form className="card-body p-0 " onSubmit={handleSubmit}>
+      <form className="card-body p-0" onSubmit={handleSubmit}>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Review</span>
           </label>
           <textarea
             className="textarea textarea-bordered"
-            placeholder="Review"
+            placeholder="Write your review here"
             value={reviewContent}
-            onChange={(e) => setReviewContent(e.target.value)} // Add onChange handler to update review content
+            onChange={(e) => setReviewContent(e.target.value)} // Handle review content change
             name="review"
             required
           ></textarea>
         </div>
+        
         <div className="form-control">
           <label className="label">
             <span className="label-text">Rating:</span>
@@ -92,18 +95,20 @@ const FromForFeedback = ({ booking }) => {
             ))}
           </select>
         </div>
+
+        {/* Read-only Username */}
         <div className="form-control">
           <label className="label">
             <span className="label-text">Your Name</span>
           </label>
           <input
             type="text"
-            placeholder="Your Name"
-            value={user?.displayName || ""} // Set default value to user's display name
+            value={user?.displayName || "Guest"} // Display the user's name or "Guest" if not logged in
             className="input input-bordered"
-            name="name"
+            readOnly // Make the input read-only
           />
         </div>
+
         <div className="form-control mt-6">
           <button type="submit" className="btn btn-primary">
             Submit
