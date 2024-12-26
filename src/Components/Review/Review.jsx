@@ -26,7 +26,7 @@ const Review = () => {
   }, [selectedRating]);
 
   const fetchReviews = (rating) => {
-    let url = "http://localhost:5000/reviews";
+    let url = "https://assignment-11-server-umber-nine.vercel.app/reviews";
     if (rating !== null) {
       url += `?minRating=${rating}&maxRating=${rating}`;
     }

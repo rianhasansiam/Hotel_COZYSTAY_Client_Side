@@ -31,7 +31,7 @@ const ReviewModal = ({ booking }) => {
   useEffect(() => {
     if (user) {
       // Fetch reviews when component mounts
-      fetch("http://localhost:5000/reviews")
+      fetch("https://assignment-11-server-umber-nine.vercel.app/reviews")
         .then((response) => response.json())
         .then((data) => {
           // Filter reviews by user email and matching booking ID

@@ -14,7 +14,7 @@ const BookingTestPage = () => {
   useEffect(() => {
     // Fetch user's bookings
     fetch(
-      `http://localhost:5000/bookings?email=${user?.email}`
+      `https://assignment-11-server-umber-nine.vercel.app/bookings?email=${user?.email}`
     )
       .then((res) => res.json())
       .then((data) => setBookings(data));
@@ -28,7 +28,7 @@ const BookingTestPage = () => {
     if (currentDate.isBefore(cancellationDeadline)) {
       // Proceed with cancellation
       fetch(
-        `http://localhost:5000/bookings/${id}/cancel`,
+        `https://assignment-11-server-umber-nine.vercel.app/bookings/${id}/cancel`,
         {
           method: "POST",
         }

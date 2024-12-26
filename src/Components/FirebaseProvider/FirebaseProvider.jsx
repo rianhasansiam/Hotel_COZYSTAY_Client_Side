@@ -98,7 +98,7 @@ const FirebaseProvider = ({ children }) => {
       if (currentUser) {
         axios
           .post(
-            "http://localhost:5000/jwt",
+            "https://assignment-11-server-umber-nine.vercel.app/jwt",
             loggedUser,
             {
               withCredentials: true,
@@ -110,7 +110,7 @@ const FirebaseProvider = ({ children }) => {
       } else {
         axios
           .post(
-            "http://localhost:5000/logout",
+            "https://assignment-11-server-umber-nine.vercel.app/logout",
             loggedUser,
             {
               withCredentials: true,

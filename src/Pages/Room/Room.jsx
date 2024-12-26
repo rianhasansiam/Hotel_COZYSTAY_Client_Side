@@ -22,7 +22,7 @@ const Room = () => {
   const fetchRooms = async (minPrice, maxPrice) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/rooms?minPrice=${
+        `https://assignment-11-server-umber-nine.vercel.app/rooms?minPrice=${
           minPrice || ""
         }&maxPrice=${maxPrice || ""}`
       );
@@ -51,7 +51,7 @@ const Room = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/reviews`);
+        const response = await axios.get(`https://assignment-11-server-umber-nine.vercel.app/reviews`);
         setReview(response.data);
       } catch (err) {
         setError('Error fetching data');

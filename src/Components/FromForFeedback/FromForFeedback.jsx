@@ -35,7 +35,7 @@ const FromForFeedback = ({ booking }) => {
     console.log("Review:", review);
 
     // Submit the review to the server
-    fetch("http://localhost:5000/reviews", {
+    fetch("https://assignment-11-server-umber-nine.vercel.app/reviews", {
       method: "POST",
       headers: {
         "content-type": "application/json",

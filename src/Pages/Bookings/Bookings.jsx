@@ -22,7 +22,7 @@ const Bookings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      const url = `http://localhost:5000/bookings?email=${user.email}`;
+      const url = `https://assignment-11-server-umber-nine.vercel.app/bookings?email=${user.email}`;
       
       axios.get(url, { withCredentials: true })
         .then((res) => setBookings(res.data))
@@ -34,7 +34,7 @@ const Bookings = () => {
 
 
   // const handleDelete = (id) => {
-  //   fetch(`http://localhost:5000/bookings/${id}`, {
+  //   fetch(`https://assignment-11-server-umber-nine.vercel.app/bookings/${id}`, {
   //     method: "DELETE",
   //     headers: {
   //       "content-type": "application/json",
@@ -73,7 +73,7 @@ const Bookings = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       // If user clicks "Yes, delete it!"
-      const deleteUrl = `http://localhost:5000/booking/cancle/${id}`;
+      const deleteUrl = `https://assignment-11-server-umber-nine.vercel.app/booking/cancle/${id}`;
 
       axios
         .delete(deleteUrl)

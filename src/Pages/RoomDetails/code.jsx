@@ -62,7 +62,7 @@ const RoomDetails = () => {
 
   // useEffect(() => {
   //   // Fetch reviews when component mounts
-  //   fetch("http://localhost:5000/reviews")
+  //   fetch("https://assignment-11-server-umber-nine.vercel.app/reviews")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       const filteredReviews = data.filter(
@@ -78,7 +78,7 @@ const RoomDetails = () => {
   useEffect(() => {
     if (isAuthenticated) {
       // Fetch bookings for the current room
-      fetch(`http://localhost:5000/bookings/room/${_id}`)
+      fetch(`https://assignment-11-server-umber-nine.vercel.app/bookings/room/${_id}`)
         .then((response) => response.json())
         .then((data) => {
           setBookings(data);
@@ -94,7 +94,7 @@ const RoomDetails = () => {
 
   // Fetch bookings for the current room
   // useEffect(() => {
-  //   fetch("http://localhost:5000/bookings")
+  //   fetch("https://assignment-11-server-umber-nine.vercel.app/bookings")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       const submitReview = data.filter((roomID) => roomID.room_id === _id);
@@ -107,7 +107,7 @@ const RoomDetails = () => {
 
   useEffect(() => {
     // Fetch reviews when component mounts
-    fetch("http://localhost:5000/reviews")
+    fetch("https://assignment-11-server-umber-nine.vercel.app/reviews")
       .then((response) => response.json())
       .then((data) => {
         const filteredReviews = data.filter(
@@ -140,7 +140,7 @@ const RoomDetails = () => {
   // useEffect(() => {
   //   if (user) {
   //     // Fetch bookings when component mounts
-  //     fetch("http://localhost:5000/bookings")
+  //     fetch("https://assignment-11-server-umber-nine.vercel.app/bookings")
   //       .then((response) => response.json())
   //       .then((data) => {
   //         // Filter bookings by user email
@@ -163,7 +163,7 @@ const RoomDetails = () => {
     const fetchBookings = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/bookings"
+          "https://assignment-11-server-umber-nine.vercel.app/bookings"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch bookings");

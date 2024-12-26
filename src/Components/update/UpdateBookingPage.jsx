@@ -31,7 +31,7 @@ const UpdateBookingPage = () => {
     const fetchBookingDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/bookings/${id}`
+          `https://assignment-11-server-umber-nine.vercel.app/bookings/${id}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch booking details");

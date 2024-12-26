@@ -18,7 +18,7 @@ const ReviewForm = ({ roomDetails }) => {
   useEffect(() => {
     if (user) {
       // Fetch bookings when component mounts
-      fetch("http://localhost:5000/bookings")
+      fetch("https://assignment-11-server-umber-nine.vercel.app/bookings")
         .then((response) => response.json())
         .then((data) => {
           // Filter bookings by user email and room_id
@@ -34,7 +34,7 @@ const ReviewForm = ({ roomDetails }) => {
     }
 
     // Fetch reviews
-    fetch("http://localhost:5000/reviews")
+    fetch("https://assignment-11-server-umber-nine.vercel.app/reviews")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -72,7 +72,7 @@ const ReviewForm = ({ roomDetails }) => {
       };
 
       // Submit the review to the server
-      fetch("http://localhost:5000/reviews", {
+      fetch("https://assignment-11-server-umber-nine.vercel.app/reviews", {
         method: "POST",
         headers: {
           "content-type": "application/json",

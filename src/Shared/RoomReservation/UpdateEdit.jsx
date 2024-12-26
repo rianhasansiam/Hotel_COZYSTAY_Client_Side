@@ -12,7 +12,7 @@ const UpdateEdit = ({ _id }) => {
     const fetchBookings = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/bookings"
+          "https://assignment-11-server-umber-nine.vercel.app/bookings"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch bookings");

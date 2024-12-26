@@ -78,7 +78,7 @@ const BookingsUpdate = () => {
     console.log("Submitted Data:", updatedDetails);
 
     axios
-      .patch(`http://localhost:5000/booking/update/${room_id}`, updatedDetails, {
+      .patch(`https://assignment-11-server-umber-nine.vercel.app/booking/update/${room_id}`, updatedDetails, {
         headers: {
           'Content-Type': 'application/json',
         },

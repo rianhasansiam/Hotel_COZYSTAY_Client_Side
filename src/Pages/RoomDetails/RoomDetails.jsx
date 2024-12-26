@@ -63,7 +63,7 @@ const RoomDetails = () => {
     console.log('Reservation Details:', reservationDetails);
 
     // Axios post request inside handleSubmit
-    axios.post('http://localhost:5000/bookings', reservationDetails)
+    axios.post('https://assignment-11-server-umber-nine.vercel.app/bookings', reservationDetails)
       .then(response => {
         console.log(response.data);
         // Navigate to the bookings page or show success message if needed
@@ -86,11 +86,11 @@ const RoomDetails = () => {
       try {
         if (id) {
           // Fetch room details
-          const roomResponse = await axios.get(`http://localhost:5000/rooms/${id}`);
+          const roomResponse = await axios.get(`https://assignment-11-server-umber-nine.vercel.app/rooms/${id}`);
           setData(roomResponse.data);
 
           // Fetch room bookings
-          const bookingResponse = await axios.get(`http://localhost:5000/bookings/${id}`);
+          const bookingResponse = await axios.get(`https://assignment-11-server-umber-nine.vercel.app/bookings/${id}`);
           setBookings(bookingResponse.data);
         }
       } catch (err) {
@@ -118,7 +118,7 @@ const RoomDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/eachReview/${id}`); // Fetch room details by ID
+        const response = await axios.get(`https://assignment-11-server-umber-nine.vercel.app/eachReview/${id}`); // Fetch room details by ID
         setReview(response.data);  // Update state with room details
       } catch (err) {
         console.log('Data fetching problem', err);  // Log errors if data fetch fails

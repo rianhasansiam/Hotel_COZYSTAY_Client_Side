@@ -25,7 +25,7 @@ const Review = () => {
   // useEffect(() => {
   //   // Fetch reviews when component mounts
   //   fetch(
-  //     `http://localhost:5000/reviews?minRating=${selectedRating}&maxRating=${selectedRating}`
+  //     `https://assignment-11-server-umber-nine.vercel.app/reviews?minRating=${selectedRating}&maxRating=${selectedRating}`
   //   )
   //     .then((response) => response.json())
   //     .then((data) => {
@@ -41,7 +41,7 @@ const Review = () => {
   useEffect(() => {
     if (user) {
       // Fetch reviews when component mounts
-      fetch("http://localhost:5000/reviews")
+      fetch("https://assignment-11-server-umber-nine.vercel.app/reviews")
         .then((response) => response.json())
         .then((data) => {
           // Filter reviews by user email and matching booking ID

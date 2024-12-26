@@ -51,7 +51,7 @@ const Login = () => {
 
 
         axios
-        .post("http://localhost:5000/jwt", user, {
+        .post("https://assignment-11-server-umber-nine.vercel.app/jwt", user, {
           withCredentials: true,
         })
         

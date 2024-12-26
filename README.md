@@ -1,8 +1,26 @@
-# React + Vite
+# Project Name: 
+- COZYSTAY
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Project Purpose: 
+- Hotel Booking Platform
 
-Currently, two official plugins are available:
+# Live URL: 
+- [https://assignment-11-118f4.web.app/](https://assignment-11-118f4.web.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# key features: 
+- Booking Details Update
+- Responsive UI and Form Validation
+- Real-time Total Cost Calculation
+- Axios for API Interaction
+
+
+# npm packages I have used: 
+- React DatePicker
+- React Toastify
+- Firebase Context
+
+
+
+
+
+

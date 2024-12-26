@@ -28,7 +28,7 @@
 //         path: "/room",
 //         element: <Room></Room>,
 //         loader: () =>
-//           fetch("http://localhost:5000/rooms"),
+//           fetch("https://assignment-11-server-umber-nine.vercel.app/rooms"),
 //       },
 
 //       {
@@ -39,14 +39,14 @@
 //           </PrivateRoute>
 //         ),
 //         loader: () =>
-//           fetch("http://localhost:5000/rooms"),
+//           fetch("https://assignment-11-server-umber-nine.vercel.app/rooms"),
 //       },
 //       {
 //         path: "/update/:id",
 //         element: <BookingsUpdate></BookingsUpdate>,
 //         loader: ({ params }) =>
 //           fetch(
-//             `http://localhost:5000/bookings/${params.id}`
+//             `https://assignment-11-server-umber-nine.vercel.app/bookings/${params.id}`
 //           ),
 //       },
 //       {
@@ -74,7 +74,7 @@
 //         ),
 //         loader: ({ params }) =>
 //           fetch(
-//             `http://localhost:5000/rooms/${params.id}`
+//             `https://assignment-11-server-umber-nine.vercel.app/rooms/${params.id}`
 //           ),
 //       },
 //       {
@@ -82,7 +82,7 @@
 //         element: <RoomDetails></RoomDetails>,
 //         loader: ({ params }) =>
 //           fetch(
-//             `http://localhost:5000/rooms/${params.id}`
+//             `https://assignment-11-server-umber-nine.vercel.app/rooms/${params.id}`
 //           ),
 //       },
 //       {
@@ -90,7 +90,7 @@
 //         element: <BookRoom></BookRoom>,
 //         loader: ({ params }) =>
 //           fetch(
-//             `http://localhost:5000/rooms/${params.id}`
+//             `https://assignment-11-server-umber-nine.vercel.app/rooms/${params.id}`
 //           ),
 //       },
 //       {
@@ -98,7 +98,7 @@
 //         element: <Cart></Cart>,
 //         loader: ({ params }) =>
 //           fetch(
-//             `http://localhost:5000/rooms/${params.id}`
+//             `https://assignment-11-server-umber-nine.vercel.app/rooms/${params.id}`
 //           ),
 //       },
 //     ],
@@ -148,7 +148,7 @@ const router = createBrowserRouter([
         path: "/room",
         element: <Room></Room>,
         loader: () =>
-          fetch("http://localhost:5000/rooms")
+          fetch("https://assignment-11-server-umber-nine.vercel.app/rooms")
             .then((res) => {
               if (!res.ok) {
                 throw new Error('Failed to fetch rooms');
@@ -168,7 +168,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () =>
-          fetch("http://localhost:5000/rooms")
+          fetch("https://assignment-11-server-umber-nine.vercel.app/rooms")
             .then((res) => {
               if (!res.ok) {
                 throw new Error('Failed to fetch rooms');
@@ -184,7 +184,7 @@ const router = createBrowserRouter([
         path: "/update/:id",
         element: <BookingsUpdate></BookingsUpdate>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookings/${params.id}`)
+          fetch(`https://assignment-11-server-umber-nine.vercel.app/bookings/${params.id}`)
             .then((res) => {
               if (!res.ok) {
                 throw new Error('Failed to fetch booking details');
@@ -220,7 +220,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/rooms/${params.id}`)
+          fetch(`https://assignment-11-server-umber-nine.vercel.app/rooms/${params.id}`)
             .then((res) => {
               if (!res.ok) {
                 throw new Error('Failed to fetch room details');
@@ -240,7 +240,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/rooms/${params.id}`)
+          fetch(`https://assignment-11-server-umber-nine.vercel.app/rooms/${params.id}`)
             .then((res) => {
               if (!res.ok) {
                 throw new Error('Failed to fetch room details');
@@ -260,7 +260,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/rooms/${params.id}`)
+          fetch(`https://assignment-11-server-umber-nine.vercel.app/rooms/${params.id}`)
             .then((res) => {
               if (!res.ok) {
                 throw new Error('Failed to fetch room details');
