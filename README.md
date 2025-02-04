@@ -35,9 +35,12 @@ Follow these steps to set up the project locally:
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/rianhasansiam/Hotel_COZYSTAY_Client_Side.git
-   cd cozystay
-   npm install
-   npm start
+   cd cozystay 
+
+
+   2. **Install Dependencies**:
+   ```bash
+   npm install 
 
  
 
