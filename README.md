@@ -43,9 +43,11 @@ Follow these steps to set up the project locally:
    ```bash
    npm install
    ```
+
+
 3. **Project start**:
    ```bash
- npm start
+   npm start
    ```
 
   
