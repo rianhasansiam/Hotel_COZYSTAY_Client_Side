@@ -1,37 +1,45 @@
-## Project Name: 
-- COZYSTAY
+# COZYSTAY - Hotel Booking Platform
 
-## Project Purpose: 
-- Hotel Booking Platform
+COZYSTAY is a comprehensive hotel booking platform where users can browse, book, and manage hotel reservations with ease. The platform features real-time cost calculation, booking updates, and a responsive user interface.
 
-## Live URL: 
-- [https://assignment-11-118f4.web.app/](https://assignment-11-118f4.web.app/)
+## Live Project
+- **Live URL**: [COZYSTAY - Live Project](https://assignment-11-118f4.web.app/)
 
-## key features: 
-- Booking Details Update
-- Responsive UI and Form Validation
-- Real-time Total Cost Calculation
-- Axios for API Interaction
+## Screenshot
+![COZYSTAY Screenshot](path/to/screenshot.png)
 
+## Technologies Used
+- **Frontend**: React, Tailwind CSS
+- **Backend**: Express.js, Node.js
+- **Database**: MongoDB
+- **Authentication**: JWT, Firebase
+- **Charts**: Recharts
+- **API Interaction**: Axios
 
-## Technologies and Libraries
+## Core Features
+- Booking details update functionality
+- Responsive UI and form validation
+- Real-time total cost calculation
+- User authentication using JWT and Firebase
+- Admin dashboard with data visualization using Recharts
 
-- **React**: Frontend JavaScript library used for building the user interface.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
-- **Express.js**: Backend framework for building the server-side API.
-- **MongoDB**: Database to store user and application data.
-- **JWT**: JSON Web Tokens for authentication.
-- **Recharts**: Library used for visualizing application data in the admin dashboard.
-- **Axios**: HTTP client to fetch data from the server.
-- **Firebase**: Used for user authentication and project hosting.
-- **Node.js**: Runtime environment for executing server-side JavaScript code.
-
-
-## npm packages I have used: 
+## Dependencies
 - React DatePicker
 - React Toastify
 - Firebase Context
 
+## Local Setup
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/rianhasansiam/Hotel_COZYSTAY_Client_Side.git
+   cd cozystay
+   npm install
+   npm start
+
+ 
 
 
 
