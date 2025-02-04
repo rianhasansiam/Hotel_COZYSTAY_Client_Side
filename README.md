@@ -6,7 +6,7 @@ COZYSTAY is a comprehensive hotel booking platform where users can browse, book,
 - **Live URL**: [COZYSTAY - Live Project](https://assignment-11-118f4.web.app/)
 
 ## Screenshot
-![COZYSTAY Screenshot](path/to/screenshot.png)
+![COZYSTAY Screenshot](https://rianhasansiam-64bc5.web.app/assets/assignment11-BC9pz_do.png)
 
 ## Technologies Used
 - **Frontend**: React, Tailwind CSS
@@ -39,10 +39,16 @@ Follow these steps to set up the project locally:
    ```
 
 
-   2. **Install Dependencies**:
+2. **Install Dependencies**:
    ```bash
    npm install
    ```
+3. **Project start**:
+   ```bash
+ npm start
+   ```
+
+  
 
  
 
