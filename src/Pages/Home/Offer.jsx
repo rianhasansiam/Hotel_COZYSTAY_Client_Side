@@ -18,6 +18,14 @@ const Offer = () => {
       image:
         'https://i.ibb.co/vVz1RwS/pexels-hakimsatoso-3634741.jpg', // Replace with actual image URL
     },
+    {
+      title: 'Business Traveler Package',
+      description:
+        'Tailored for business travelers with high-speed internet, complimentary breakfast, and meeting room access.',
+      price: '$299',
+      image:
+        'https://i.ibb.co/FwrrV3D/pexels-jvdm-1457842.jpg', // Replace with actual image URL
+    },
   ];
 
   return (
