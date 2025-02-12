@@ -108,24 +108,9 @@ useEffect(() => {
           </div>
 
          
-          <div className="lg:flex items-center mt-4 gap-6">
-            {user ? (
-              <Link to={`/roomdetails/${_id}`}>
-                <button className="btn btn-primary text-white font-marcellus">
-                  Room Details
-                </button>
-              </Link>
-            ) : (
-              <Link to={`/details/${_id}`}>
-                <button className="btn btn-primary text-white font-marcellus">
-                  Room Details
-                </button>
-              </Link>
-            )}
-            <p className=" font-marcellus text-secondary text-xl">
-              From ${pricePerNight}/Night
-            </p>
-          </div>
+
+
+
         </div>
         <div data-aos="fade-left" className="lg:w-2/3 w-1/2">
           <Swiper
