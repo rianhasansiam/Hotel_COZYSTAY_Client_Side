@@ -61,7 +61,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(`https://assignment-11-server-umber-nine.vercel.app/eachReview/${_id}`); // Fetch room details by ID
-      setReviews(response.data);  // Update state with room details
+      setReviews(response.data);  
     } catch (err) {
       console.log('Data fetching problem', err);  // Log errors if data fetch fails
     }
