@@ -3,7 +3,7 @@
 COZYSTAY is a comprehensive hotel booking platform where users can browse, book, and manage hotel reservations with ease. The platform features real-time cost calculation, booking updates, and a responsive user interface.
 
 ## Live Project
-- **Live URL**: [COZYSTAY - Live Project](https://assignment-11-118f4.web.app/)
+- **Live URL**: [COZYSTAY - Live Project](https://cozystay-hotel-booking.web.app/)
 
 ## Screenshot
 ![COZYSTAY Screenshot](https://rianhasansiam-64bc5.web.app/assets/assignment11-BC9pz_do.png)
