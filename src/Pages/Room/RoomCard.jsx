@@ -53,7 +53,7 @@ console.log(reviews)
     image,
   } = room;
 
-// console.log(room)
+
 
 
 

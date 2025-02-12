@@ -29,9 +29,7 @@ const Home = () => {
         <HotelRooms></HotelRooms>
       </div>
       <div>
-       
-
-       
+        <Map></Map>
       </div>
       <div>
         <Benefits></Benefits>
