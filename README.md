@@ -66,7 +66,7 @@ Follow these steps to set up the project locally:
 
 2. **Navigate to the project directory**:
    ```bash
-   cd cozystay 
+   cd Hotel_COZYSTAY_Client_Side 
    ```
 
 
