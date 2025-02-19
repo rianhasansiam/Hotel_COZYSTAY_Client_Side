@@ -24,9 +24,33 @@ COZYSTAY is a comprehensive hotel booking platform where users can browse, book,
 - Admin dashboard with data visualization using Recharts
 
 ## Dependencies
+
+- @emotion/react
+- @emotion/styled
+- @mui/material
+- AOS
+- Axios
+- Firebase
+- Leaflet
+- LocalForage
+- Lucide React
+- Match Sorter
+- Moment
+- Prop Types
+- React
 - React DatePicker
+- React DOM
+- React Helmet
+- React Hook Form
+- React Icons
+- React Leaflet
+- React Modal
+- React Router DOM
 - React Toastify
-- Firebase Context
+- Sort By
+- SweetAlert2
+- Swiper
+
 
 ## Local Setup
 
@@ -35,11 +59,42 @@ Follow these steps to set up the project locally:
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/rianhasansiam/Hotel_COZYSTAY_Client_Side.git
-   cd cozystay  
+    
    ```
 
 
-2. **Install Dependencies**:
+
+2. **Navigate to the project directory**:
+   ```bash
+   cd cozystay 
+   ```
+
+
+3. **Install dependencies**:
+   ```bash
+  npm install
+   ```
+
+
+   4. **Set up environment variables**:
+   ```bash
+   VITE_apiKey=AIzaSyDo6OxJShcMwWk59bENGhAeUJce_kDwnO8
+   VITE_authDomain=assignment-11-118f4.firebaseapp.com
+   VITE_projectId=assignment-11-118f4
+   VITE_storageBucket=assignment-11-118f4.firebasestorage.app
+   VITE_messagingSenderId=1006333709692
+   VITE_appId=1:1006333709692:web:ad8e1afba2193f48a7e8f9
+   
+   ```
+
+
+5. **Run the project**:
+   ```bash
+   npm start 
+   ```
+
+
+<!-- 3. **Install Dependencies**:
    ```bash
    npm install
    ```
@@ -48,7 +103,7 @@ Follow these steps to set up the project locally:
 3. **Project start**:
    ```bash
    npm start
-   ```
+   ``` -->
 
   
 
