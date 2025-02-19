@@ -76,7 +76,7 @@ Follow these steps to set up the project locally:
    ```
 
 
-   4. **Set up environment variables**:
+4. **Set up environment variables**:
    ```bash
   VITE_apiKey=YOUR_FIREBASE_API_KEY
   VITE_authDomain=YOUR_FIREBASE_AUTH_DOMAIN
