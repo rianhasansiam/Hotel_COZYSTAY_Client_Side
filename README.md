@@ -72,38 +72,29 @@ Follow these steps to set up the project locally:
 
 3. **Install dependencies**:
    ```bash
-  npm install
+   npm install
    ```
 
 
    4. **Set up environment variables**:
    ```bash
-   VITE_apiKey=AIzaSyDo6OxJShcMwWk59bENGhAeUJce_kDwnO8
-   VITE_authDomain=assignment-11-118f4.firebaseapp.com
-   VITE_projectId=assignment-11-118f4
-   VITE_storageBucket=assignment-11-118f4.firebasestorage.app
-   VITE_messagingSenderId=1006333709692
-   VITE_appId=1:1006333709692:web:ad8e1afba2193f48a7e8f9
-   
+  VITE_apiKey=YOUR_FIREBASE_API_KEY
+  VITE_authDomain=YOUR_FIREBASE_AUTH_DOMAIN
+  VITE_projectId=YOUR_FIREBASE_PROJECT_ID
+  VITE_storageBucket=YOUR_FIREBASE_STORAGE_BUCKET
+  VITE_messagingSenderId=YOUR_MESSAGING_SENDER_ID
+  VITE_appId=YOUR_FIREBASE_APP_ID
    ```
 
 
 5. **Run the project**:
    ```bash
-   npm start 
+   npm run dev
+
    ```
 
 
-<!-- 3. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
 
-
-3. **Project start**:
-   ```bash
-   npm start
-   ``` -->
 
   
 
