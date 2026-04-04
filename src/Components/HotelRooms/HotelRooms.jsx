@@ -26,7 +26,7 @@ const HotelRooms = () => {
 
   useEffect(() => {
     Aos.refresh();
-  });
+  }, []);
 
   const [rooms, setRooms] = useState([]);
 

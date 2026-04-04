@@ -42,7 +42,7 @@ const HomePageModal = () => {
 
   useEffect(() => {
     Aos.refresh();
-  });
+  }, []);
 
   const [open, setOpen] = useState(false);
 

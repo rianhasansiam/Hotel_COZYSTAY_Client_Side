@@ -11,7 +11,7 @@ const Banner = () => {
 
   useEffect(() => {
     Aos.refresh();
-  });
+  }, []);
 
   return (
     <div>

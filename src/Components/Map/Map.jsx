@@ -10,7 +10,7 @@ const Map = () => {
 
   useEffect(() => {
     Aos.refresh();
-  });
+  }, []);
   return (
     <div className="container mx-auto my-10 space-y-5">
       <div className="w-3/5 mx-auto text-center space-y-5">

@@ -37,7 +37,7 @@ console.log(reviews)
 
   useEffect(() => {
     Aos.refresh();
-  });
+  }, []);
 
   const { user } = useContext(AuthContext);
   const {
@@ -70,7 +70,7 @@ useEffect(() => {
   if (_id) {
     fetchData();  // Fetch data when component mounts or `id` changes
   }
-}, []);
+}, [_id]);
 
   const navigate=useNavigate()
 
