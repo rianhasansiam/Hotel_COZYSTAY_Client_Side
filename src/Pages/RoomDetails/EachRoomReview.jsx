@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from "prop-types";
 
 const EachRoomReview = ({ rev }) => {
 
@@ -22,7 +22,7 @@ const EachRoomReview = ({ rev }) => {
       </div>
       <p className="mt-4 text-gray-700">{rev.comment}</p>
       <div className="mt-4 flex items-center">
-        {[...Array(rev.rating)].map((_, index) => (
+        {[...Array(Number(rev.rating) || 0)].map((_, index) => (
           <svg
             key={index}
             className="w-5 h-5 text-yellow-500"
@@ -38,3 +38,13 @@ const EachRoomReview = ({ rev }) => {
 };
 
 export default EachRoomReview;
+
+EachRoomReview.propTypes = {
+  rev: PropTypes.shape({
+    timestamp: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    comment: PropTypes.string,
+    rating: PropTypes.number,
+  }).isRequired,
+};

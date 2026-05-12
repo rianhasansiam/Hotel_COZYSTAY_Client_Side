@@ -1,18 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Components/hooks/useAuth";
-import { useState } from "react";
 
 const Navbar = () => {
   const { logout, user } = useAuth();
-  const [theme, setTheme] = useState("light");
-
-  const handleToggle = (e) => {
-    if (e.target.value) {
-      setTheme("synthwave");
-    } else {
-      setTheme("light");
-    }
-  };
 
   const navLinks = (
     <>
@@ -115,7 +105,6 @@ const Navbar = () => {
           )}
           <label className="cursor-pointer grid place-items-center ml-4">
             <input
-              onChange={handleToggle}
               type="checkbox"
               value="synthwave"
               className="toggle theme-controller bg-base-content row-start-1 col-start-1 col-span-2"

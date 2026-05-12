@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 
 const PageTitle = ({ title }) => {
   return (
@@ -12,3 +13,7 @@ const PageTitle = ({ title }) => {
 };
 
 export default PageTitle;
+
+PageTitle.propTypes = {
+  title: PropTypes.string.isRequired,
+};

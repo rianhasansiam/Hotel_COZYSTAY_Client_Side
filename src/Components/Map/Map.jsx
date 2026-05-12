@@ -24,7 +24,7 @@ const Map = () => {
           Explore our interactive map to uncover hidden gems, popular
           attractions, and local landmarks. Navigate through vibrant
           neighborhoods, scenic routes, and must-visit destinations with ease.
-          Whether you're planning your next adventure or simply curious about
+          Whether you&apos;re planning your next adventure or simply curious about
           the area, our map provides an immersive experience to enhance your
           journey.{" "}
         </p>

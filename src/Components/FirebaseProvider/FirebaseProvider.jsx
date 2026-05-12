@@ -11,11 +11,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import auth from "../../Firebase/firbaseConfig";
 import axios from "axios";
-
-export const AuthContext = createContext(null);
+import AuthContext from "./AuthContext";
 
 // social auth provider
 
@@ -31,12 +30,17 @@ const FirebaseProvider = ({ children }) => {
 
   const createUser = (email, password, displayName, photoURL) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(
-      auth,
-      email,
-      password,
-      displayName,
-      photoURL
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      async (credential) => {
+        if (displayName || photoURL) {
+          await updateProfile(credential.user, {
+            displayName,
+            photoURL,
+          });
+        }
+
+        return credential;
+      }
     );
   };
 
@@ -45,12 +49,7 @@ const FirebaseProvider = ({ children }) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: image,
-    }).then(() => {
-      // profile update
     });
-    //   .catch((error) => {
-    //     // An error occurred
-    //   });
   };
 
   //   sign in user
@@ -83,17 +82,15 @@ const FirebaseProvider = ({ children }) => {
   const logout = () => {
     setLoading(true);
     setUser(null);
-    signOut(auth);
+    return signOut(auth);
   };
 
   //observer
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: userEmail };
+      const loggedUser = { email: currentUser?.email || null };
       setUser(currentUser);
-      console.log("current user", currentUser);
       setLoading(false);
       if (currentUser) {
         axios
@@ -104,8 +101,8 @@ const FirebaseProvider = ({ children }) => {
               withCredentials: true,
             }
           )
-          .then((res) => {
-            console.log("token response", res.data);
+          .catch((error) => {
+            console.error("Token sync failed:", error);
           });
       } else {
         axios
@@ -116,15 +113,14 @@ const FirebaseProvider = ({ children }) => {
               withCredentials: true,
             }
           )
-          .then((res) => {
-            console.log(res.data);
+          .catch((error) => {
+            console.error("Logout sync failed:", error);
           });
       }
     });
     return () => {
       unSubscribe();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const allValues = {

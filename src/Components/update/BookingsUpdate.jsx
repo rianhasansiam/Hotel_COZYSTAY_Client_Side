@@ -1,6 +1,6 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { AuthContext } from "../FirebaseProvider/FirebaseProvider";
+import AuthContext from "../FirebaseProvider/AuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,26 +16,33 @@ const BookingsUpdate = () => {
     Aos.refresh();
   }, []);
 
-  const roomDetails = useLoaderData();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const loadedBookingGroup = useLoaderData();
+  const bookingDetails = Array.isArray(loadedBookingGroup)
+    ? loadedBookingGroup[0]
+    : loadedBookingGroup;
+  const [startDate, setStartDate] = useState(() =>
+    bookingDetails?.checkInDate ? new Date(bookingDetails.checkInDate) : new Date()
+  );
+  const [endDate, setEndDate] = useState(() =>
+    bookingDetails?.checkOutDate ? new Date(bookingDetails.checkOutDate) : new Date()
+  );
   const [numRooms, setNumRooms] = useState(1);
   const [numAdults, setNumAdults] = useState(1);
   const [numChildren, setNumChildren] = useState(0);
   const { user } = useContext(AuthContext);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleNumRoomsChange = (e) => {
-    setNumRooms(parseInt(e.target.value));
+    setNumRooms(parseInt(e.target.value, 10));
   };
 
   const handleNumAdultsChange = (e) => {
-    setNumAdults(parseInt(e.target.value));
+    setNumAdults(parseInt(e.target.value, 10));
   };
 
   const handleNumChildrenChange = (e) => {
-    setNumChildren(parseInt(e.target.value));
+    setNumChildren(parseInt(e.target.value, 10));
   };
 
   const handleStartDateChange = (date) => {
@@ -46,14 +53,19 @@ const BookingsUpdate = () => {
     setEndDate(date);
   };
 
-  // Destructure roomDetails safely, make sure roomDetails is not undefined.
-  if (!roomDetails) {
-    return <div>Loading...</div>;
+  if (!bookingDetails) {
+    return <div className="container mx-auto py-10">Booking details not found.</div>;
   }
 
-  const { pricePerNight, room_id } = roomDetails[0];
+  const {
+    pricePerNight = 0,
+    room_id,
+    type,
+    image,
+    description,
+    roomImages,
+  } = bookingDetails;
   const totalCost = pricePerNight * numRooms;
-  // console.log(room_id)
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -64,18 +76,16 @@ const BookingsUpdate = () => {
       numRooms,
       numAdults,
       numChildren,
-      totalCost: pricePerNight * numRooms,
-      type: roomDetails.type,
-      image: roomDetails.image,
-      description: roomDetails.description,
-      roomImages: roomDetails.roomImages,
-      room_id: room_id,
+      totalCost,
+      type,
+      image,
+      description,
+      roomImages,
+      room_id,
       email: user?.email,
       user: user?.displayName,
       pricePerNight,
     };
-
-    console.log("Submitted Data:", updatedDetails);
 
     axios
       .patch(`https://assignment-11-server-umber-nine.vercel.app/booking/update/${room_id}`, updatedDetails, {
@@ -83,14 +93,9 @@ const BookingsUpdate = () => {
           'Content-Type': 'application/json',
         },
       })
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
         toast.success("Booking updated successfully");
-
-      navigate('/booking')
-
-
-        // Optionally reset the form or do other actions after success
+        navigate("/booking", { replace: true });
       })
       .catch((error) => {
         console.error("Error updating booking:", error.message);

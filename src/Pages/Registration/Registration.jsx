@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { IoIosEyeOff, IoMdEye } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+import AuthContext from "../../Components/FirebaseProvider/AuthContext";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -51,8 +51,7 @@ const Registration = () => {
     const { email, password, name, image } = data;
 
     createUser(email, password)
-      .then((result) => {
-        console.log("User created successfully:", result);
+      .then(() => {
         updateUserProfile(name, image).then(() => {
           reset();
           toast.success("Registration Successful", {

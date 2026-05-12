@@ -43,8 +43,8 @@ const Review = () => {
   // console.log("review from home", reviews);
 
   const handleRatingChange = (e) => {
-    const rating = parseInt(e.target.value);
-    setSelectedRating(rating);
+    const { value } = e.target;
+    setSelectedRating(value === "" ? null : parseInt(value, 10));
   };
 
   return (
@@ -78,7 +78,7 @@ const Review = () => {
             </div>
           </div>
           <div data-aos="fade-up">
-            {/* <Swiper
+            <Swiper
               spaceBetween={20}
               slidesPerView={1}
               navigation={true}
@@ -99,21 +99,10 @@ const Review = () => {
             >
               {reviews.map((review) => (
                 <SwiperSlide key={review._id}>
-                  <ReviewCards key={review._id} review={review}></ReviewCards>
+                  <ReviewCards review={review}></ReviewCards>
                 </SwiperSlide>
               ))}
-            </Swiper> */}
-             <div
-              
-              className="mySwiper"
-             
-            >
-              {reviews.map((review) => (
-                <SwiperSlide key={review._id}>
-                  <ReviewCards key={review._id} review={review}></ReviewCards>
-                </SwiperSlide>
-              ))}
-            </div>
+            </Swiper>
           </div>
         </div>
       </div>

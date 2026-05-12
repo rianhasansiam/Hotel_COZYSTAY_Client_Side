@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import FromForFeedback from "../../Components/FromForFeedback/FromForFeedback";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+import AuthContext from "../../Components/FirebaseProvider/AuthContext";
 
 const style = {
   position: "absolute",
@@ -78,3 +78,9 @@ const ReviewModal = ({ booking }) => {
 };
 
 export default ReviewModal;
+
+ReviewModal.propTypes = {
+  booking: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+};

@@ -16,7 +16,7 @@ const HotelRoomsCard = ({ room }) => {
 
   useEffect(() => {
     Aos.refresh();
-  });
+  }, []);
 
   const {
     _id,
@@ -30,7 +30,7 @@ const HotelRoomsCard = ({ room }) => {
   } = room;
 
   const truncateDescription = (description) => {
-    const words = description.split(" ");
+    const words = (description || "").split(" ");
     if (words.length > 15) {
       return words.slice(0, 15).join(" ") + "...";
     }
@@ -93,17 +93,17 @@ const HotelRoomsCard = ({ room }) => {
   );
 };
 
-// HotelRoomsCard.propTypes = {
-//   room: PropTypes.shape({
-//     _id: PropTypes.string,
-//     type: PropTypes.string,
-//     pricePerNight: PropTypes.number,
-//     roomSize: PropTypes.string,
-//     image: PropTypes.string,
-//     description: PropTypes.string,
-//     guests: PropTypes.number,
-//     beds: PropTypes.number,
-//   }).isRequired,
-// };
+HotelRoomsCard.propTypes = {
+  room: PropTypes.shape({
+    _id: PropTypes.string,
+    type: PropTypes.string,
+    pricePerNight: PropTypes.number,
+    roomSize: PropTypes.string,
+    image: PropTypes.string,
+    description: PropTypes.string,
+    guests: PropTypes.number,
+    beds: PropTypes.number,
+  }).isRequired,
+};
 
 export default HotelRoomsCard;

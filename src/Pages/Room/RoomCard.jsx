@@ -17,18 +17,14 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+import AuthContext from "../../Components/FirebaseProvider/AuthContext";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
 
 const RoomCard = ({ room, alternateLayout }) => {
-
-
-
-const [reviews,setReviews]=useState([])
-console.log(reviews)
+  const [reviews, setReviews] = useState([]);
 
 
   useEffect(() => {
@@ -63,7 +59,7 @@ useEffect(() => {
       const response = await axios.get(`https://assignment-11-server-umber-nine.vercel.app/eachReview/${_id}`); // Fetch room details by ID
       setReviews(response.data);  
     } catch (err) {
-      console.log('Data fetching problem', err);  // Log errors if data fetch fails
+      console.error("Review fetch failed:", err);
     }
   };
 
@@ -72,13 +68,14 @@ useEffect(() => {
   }
 }, [_id]);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const detailsPath = user ? `/roomdetails/${_id}` : `/details/${_id}`;
 
   if (alternateLayout) {
     return (
       
      
-      <div onClick={()=>navigate(`/roomdetails/${_id}`)} className="flex justify-between lg:gap-10 gap-2 h-[450px] items-center shadow-xl p-10 rounded-xl overflow-hidden cursor-pointer">
+      <div onClick={() => navigate(detailsPath)} className="flex justify-between lg:gap-10 gap-2 h-[450px] items-center shadow-xl p-10 rounded-xl overflow-hidden cursor-pointer">
         <div data-aos="fade-right" className="lg:w-1/3 lg:space-y-14 ">
           <div>
             <p className=" text-sm text-primary font-medium font-jost">
@@ -109,19 +106,11 @@ useEffect(() => {
 
          
           <div className="lg:flex items-center mt-4 gap-6">
-            {user ? (
-              <Link to={`/roomdetails/${_id}`}>
-                <button className="btn btn-primary text-white font-marcellus">
-                  Room Details
-                </button>
-              </Link>
-            ) : (
-              <Link to={`/details/${_id}`}>
-                <button className="btn btn-primary text-white font-marcellus">
-                  Room Details
-                </button>
-              </Link>
-            )}
+            <Link to={detailsPath}>
+              <button className="btn btn-primary text-white font-marcellus">
+                Room Details
+              </button>
+            </Link>
             <p className=" font-marcellus text-secondary text-xl">
               From ${pricePerNight}/Night
             </p>
@@ -145,9 +134,9 @@ useEffect(() => {
             <SwiperSlide>
               <img className="w-full h-[450px]" src={image} alt="" />
             </SwiperSlide>
-            {roomImages.map((imageUrl, index) => (
+            {(roomImages || []).map((imageUrl, index) => (
               <SwiperSlide key={index}>
-                <Link to={`/roomdetails/${_id}`}>
+                <Link to={detailsPath}>
                   <img
                     src={imageUrl}
                     alt={`Room ${index + 1}`}
@@ -163,7 +152,7 @@ useEffect(() => {
     );
   } else {
     return (
-      <div onClick={()=>navigate(`/roomdetails/${_id}`)} className="flex justify-between lg:gap-10 gap-2 h-[450px] items-center shadow-xl p-10 rounded-xl overflow-hidden">
+      <div onClick={() => navigate(detailsPath)} className="flex justify-between lg:gap-10 gap-2 h-[450px] items-center shadow-xl p-10 rounded-xl overflow-hidden">
         <div data-aos="fade-right" className="lg:w-2/3 w-1/2 ">
           <Swiper
             spaceBetween={20}
@@ -179,9 +168,9 @@ useEffect(() => {
             <SwiperSlide>
               <img className="w-full h-[450px]" src={image} alt="" />
             </SwiperSlide>
-            {roomImages.map((imageUrl, index) => (
+            {(roomImages || []).map((imageUrl, index) => (
               <SwiperSlide key={index}>
-                <Link to={`/roomdetails/${_id}`}>
+                <Link to={detailsPath}>
                   <img
                     src={imageUrl}
                     alt={`Room ${index + 1}`}
@@ -220,7 +209,7 @@ useEffect(() => {
             )}
           </div>
           <div className="lg:flex items-center mt-4 gap-6">
-            <Link to={`/roomdetails/${_id}`}>
+            <Link to={detailsPath}>
               <button className="btn btn-primary text-white font-marcellus">
                 Room Details{" "}
               </button>

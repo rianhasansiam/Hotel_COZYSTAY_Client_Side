@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import CartModal from "./cartModal";
 import ReviewModal from "./reviewModal";
 import { Link } from "react-router-dom";
 
@@ -40,17 +39,12 @@ const Cart = ({ booking, handleCancel }) => {
   };
 
 
-const storeDate=formatDate(checkOutDate)
-
-  const handleDelete = (_id, storeDate) => {
-    const cancellationDeadline = moment(storeDate).subtract(1, "days"); // 1 day before check-in date
+  const handleDelete = (_id, bookingCheckInDate) => {
+    const cancellationDeadline = moment(bookingCheckInDate).subtract(1, "days");
     const currentDate = moment();
-    // console.log(cancellationDeadline)
-    // console.log(currentDate)
-    // console.log(formatDate(checkOutDate))
   
     if (currentDate.isBefore(cancellationDeadline)) {
-      handleCancel(_id); // Proceed with cancellation if before deadline
+      handleCancel(_id);
     } else {
       toast.error("Cancellation deadline has passed. You cannot cancel this booking.", {
         position: "top-right",
@@ -114,7 +108,7 @@ const storeDate=formatDate(checkOutDate)
         >
           <ReviewModal booking={booking}></ReviewModal>
           <button
-            onClick={() => handleDelete(_id,storeDate)}
+            onClick={() => handleDelete(_id, checkInDate)}
             className="btn btn-sm bg-red-600 text-white"
           >
             Cancel
@@ -124,7 +118,6 @@ const storeDate=formatDate(checkOutDate)
               Update
             </button>
           </Link>
-          {/* <CartModal booking={booking} handleDelete={handleDelete}></CartModal> */}
         </div>
       </div>
       <div className="divider divider-secondary"></div>
@@ -132,20 +125,20 @@ const storeDate=formatDate(checkOutDate)
   );
 };
 
-// Cart.propTypes = {
-//   booking: PropTypes.shape({
-//     _id: PropTypes.string,
-//     checkInDate: PropTypes.string,
-//     checkOutDate: PropTypes.string,
-//     numRooms: PropTypes.number,
-//     numAdults: PropTypes.number,
-//     totalCost: PropTypes.number,
-//     type: PropTypes.string,
-//     image: PropTypes.string,
-//     pricePerNight: PropTypes.number,
-//   }),
-//   handleDelete: PropTypes.func,
-//   handleCancel: PropTypes.func, // Added this for completeness
-// };
+Cart.propTypes = {
+  booking: PropTypes.shape({
+    _id: PropTypes.string,
+    checkInDate: PropTypes.string,
+    checkOutDate: PropTypes.string,
+    numRooms: PropTypes.number,
+    numAdults: PropTypes.number,
+    totalCost: PropTypes.number,
+    type: PropTypes.string,
+    image: PropTypes.string,
+    pricePerNight: PropTypes.number,
+    room_id: PropTypes.string,
+  }),
+  handleCancel: PropTypes.func.isRequired,
+};
 
 export default Cart;

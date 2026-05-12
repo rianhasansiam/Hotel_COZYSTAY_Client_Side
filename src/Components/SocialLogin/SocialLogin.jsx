@@ -1,9 +1,9 @@
-import { FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const SocialLogin = () => {
-  const { googleLogin, githubLogin, twitterLogin } = useAuth();
+  const { googleLogin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from || "/";
@@ -33,26 +33,6 @@ const SocialLogin = () => {
           </span>{" "}
           Google
         </button>
-
-
-        {/* <button
-          onClick={() => handleSocialLogin(githubLogin)}
-          className="btn bg-primary hover:bg-secondary text-white"
-        >
-          <span>
-            <FaGithub />
-          </span>{" "}
-          Github
-        </button>
-        <button
-          onClick={() => handleSocialLogin(twitterLogin)}
-          className="btn bg-primary hover:bg-secondary text-white"
-        >
-          <span>
-            <FaTwitter />
-          </span>{" "}
-          Twitter
-        </button> */}
       </div>
     </div>
   );

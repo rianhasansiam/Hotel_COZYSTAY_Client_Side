@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Components/FirebaseProvider/FirebaseProvider";
+import AuthContext from "../../Components/FirebaseProvider/AuthContext";
 import Cart from "../Cart/Cart";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,6 +27,8 @@ const Bookings = () => {
       axios.get(url, { withCredentials: true })
         .then((res) => setBookings(res.data))
         .catch(err => console.error('Error fetching bookings:', err));
+    } else {
+      setBookings([]);
     }
   }, [user]);
 

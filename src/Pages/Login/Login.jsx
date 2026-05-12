@@ -23,7 +23,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  console.log(location);
+  const from = location.state?.from || "/";
 
   const {
     register,
@@ -35,38 +35,34 @@ const Login = () => {
   const onSubmit = (data) => {
     const { email, password } = data;
     signInUser(email, password)
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
         const user = { email };
         toast.success("Login Successfully", {
           onClose: () => {
             reset();
-            //
-            // get access token
-           
           },
-
-
         });
-
 
         axios
-        .post("https://assignment-11-server-umber-nine.vercel.app/jwt", user, {
-          withCredentials: true,
-        })
-        
-        .then((res) => {
-          console.log(res.data);
-          if (res.data.success) {
-            navigate(location?.state ? location?.state : "/");
-          }
-        });
-
-
-        
+          .post(
+            "https://assignment-11-server-umber-nine.vercel.app/jwt",
+            user,
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            if (res.data.success) {
+              navigate(from, { replace: true });
+            }
+          })
+          .catch((error) => {
+            console.error("Token exchange failed:", error);
+            toast.error("Login succeeded, but the session could not be created.");
+          });
       })
       .catch((error) => {
-        console.error("Error creating user:", error);
+        console.error("Login failed:", error);
         toast.error("Login Failed Try Again");
       });
   };

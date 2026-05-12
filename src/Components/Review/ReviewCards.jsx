@@ -50,14 +50,14 @@ const ReviewCards = ({ review }) => {
   );
 };
 
-// ReviewCards.propTypes = {
-//   review: PropTypes.shape({
-//     comment: PropTypes.string,
-//     rating: PropTypes.number,
-//     name: PropTypes.string,
-//     timestamp: PropTypes.string,
-//     image: PropTypes.string,
-//   }),
-// };
+ReviewCards.propTypes = {
+  review: PropTypes.shape({
+    comment: PropTypes.string,
+    rating: PropTypes.number,
+    name: PropTypes.string,
+    timestamp: PropTypes.string,
+    image: PropTypes.string,
+  }).isRequired,
+};
 
 export default ReviewCards;

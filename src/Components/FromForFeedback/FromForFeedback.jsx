@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../FirebaseProvider/FirebaseProvider";
+import PropTypes from "prop-types";
+import AuthContext from "../FirebaseProvider/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,8 +33,6 @@ const FromForFeedback = ({ booking }) => {
       email: user?.email,     // Optional: user's email if available
     };
 
-    console.log("Review:", review);
-
     // Submit the review to the server
     fetch("https://assignment-11-server-umber-nine.vercel.app/reviews", {
       method: "POST",
@@ -44,7 +43,6 @@ const FromForFeedback = ({ booking }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           // Notify the user of success
           toast.success("Review submitted successfully");
@@ -121,3 +119,10 @@ const FromForFeedback = ({ booking }) => {
 };
 
 export default FromForFeedback;
+
+FromForFeedback.propTypes = {
+  booking: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    room_id: PropTypes.string.isRequired,
+  }).isRequired,
+};
